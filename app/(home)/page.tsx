@@ -3,6 +3,7 @@ import styles from './home.module.css';
 import OurLoans from './OurLoans/our_loans';
 import Consultation from './Consultation/consultation';
 import ImageSection from './ImageSection/image_section';
+import TheProblem from './TheProblem/the_problem';
 
 
 // export default function Home() {
@@ -25,6 +26,7 @@ export default function HomePage() {
         <OurLoans />
         <Consultation />
         <ImageSection />
+        <TheProblem />
     </>
   )
 }
