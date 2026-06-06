@@ -1,0 +1,15 @@
+.caption{
+    font-family: var(--font-fustat);
+    color: var(--primary);
+    letter-spacing: 5%;
+    font-size: var(--caption);
+    font-weight: 700;
+}
+
+.heading {
+    font-family: var(--font-fustat);
+    font-weight: 700;
+    font-size: var(--heading1);
+    letter-spacing: -2.5%;
+    line-height: var(--heading1);
+}
