@@ -4,8 +4,8 @@ import LoanGrid from './LoanGrid/loan_grid';
 
 export default function OurLoans() {
   return (
-    <div className='pt-20 w-[90%] self-center'>
-        <SectionHeading caption="OUR LOANS" heading="The right lender for every kind of borrower." />        
+    <div className='sm:pt-20 pt-12 sm:w-[90%] w-full sm:px-0 px-4 self-center'>
+        <SectionHeading caption="OUR LOANS" heading={<>The right lender for <br /> every kind of borrower. </>}/>        
         <LoanGrid />
     </div>
   )

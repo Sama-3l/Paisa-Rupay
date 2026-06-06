@@ -28,6 +28,33 @@
   --button: 16px;
 }
 
+@media (max-width: 1024px) {
+  :root {
+    --heading1: 40px;
+    --heading2: 32px;
+    --heading3: 26px;
+    --heading4: 20px;
+    --heading5: 18px;
+    --paragraph: 13px;
+    --caption: 11px;
+    --button: 15px;
+  }
+}
+
+/* Phone */
+@media (max-width: 768px) {
+  :root {
+    --heading1: 24px;
+    --heading2: 16px;
+    --heading3: 12px;
+    --heading4: 10px;
+    --heading5: 16px;
+    --paragraph: 12px;
+    --caption: 10px;
+    --button: 10px;
+  }
+}
+
 /* @theme inline {
   --color-background: var(--background);
   --font-sans: var(--font-geist-sans);
@@ -59,4 +86,10 @@ button{
   line-height: var(--button);
   color: var(--background);
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  button{
+    font-weight: 700;
+  }
 }

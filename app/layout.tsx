@@ -45,6 +45,12 @@ export default function RootLayout({
       lang="en"
       className={`${literataItalic.variable} ${literataRegular.variable} ${fustat.variable} h-full antialiased`}
     >
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+        />
+      </head>
       <Header />
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

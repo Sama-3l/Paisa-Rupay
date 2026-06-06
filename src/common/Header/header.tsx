@@ -12,8 +12,9 @@ export default function Header() {
     ]
 
     return (
-        <div className='flex flex-row max-w-[90%] self-center justify-between w-full pt-8 sticky bg-(--background)'>
-            <div className='flex flex-row gap-8 align-middle'>
+        <div className='flex flex-row sm:max-w-[90%] sm:px-0 px-4 self-center justify-between w-full pt-8 sticky bg-(--background)'>
+            <i className="ti ti-menu-2 text-white md:hidden visible self-center" style={{ fontSize: '24px' }}></i>
+            <div className='flex-row gap-8 align-middle md:flex hidden'>
                 {menuItems.map((menu) => (
                     <div className={`${menu.selected ? styles.menu_item_selected : styles.menu_item }`}>
                         {menu.label}
@@ -23,7 +24,7 @@ export default function Header() {
             <img
                 src="./logo/paisa_rupay_logo_v2.svg"
                 alt="Paisa Rupay logo"
-                className="h-10 w-auto object-contain cursor-pointer"
+                className="md:h-10 h-8 w-auto object-contain cursor-pointer"
             />
         </div>
     )
