@@ -111,4 +111,8 @@
     gap: 6px;
     padding: 4px 8px;
   }
+
+  .problem_wrapper {
+    margin-top: 40px;
+  }
 }
