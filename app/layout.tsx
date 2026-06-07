@@ -51,8 +51,10 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
         />
       </head>
-      <Header />
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

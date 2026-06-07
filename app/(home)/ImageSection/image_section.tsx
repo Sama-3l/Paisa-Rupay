@@ -13,7 +13,7 @@ export default function ImageSection() {
         <div className="absolute inset-0 bg-[#141414] opacity-50" />
       
 
-        <div className="absolute inset-0 flex flex-col justify-between p-3">
+        <div className="absolute inset-0 flex flex-col justify-between p-3 sm:p-8">
             <div className={styles.image_text_top}>
                 You shouldn't have to <br /> visit 4 banks to get one loan.
             </div>
