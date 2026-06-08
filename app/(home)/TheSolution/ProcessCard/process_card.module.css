@@ -4,14 +4,14 @@
     letter-spacing: -5%;
     font-size: var(--heading3);
     line-height: var(--heading2);
-    color: var(--foreground);
+    color: var(--text-color);
 }
 
 .number {
     font-family: var(--font-literata-italic);
     letter-spacing: 5%;
     font-size: var(--button);
-    color: var(--foreground);
+    color: var(--text-color);
 }
 
 .description {
@@ -19,5 +19,5 @@
     font-weight: 400;
     letter-spacing: -5%;
     font-size: var(--heading4);
-    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+    color: color-mix(in srgb, var(--text-color) 70%, transparent);
 }

@@ -10,7 +10,7 @@
     font-family: var(--font-fustat);
     font-weight: 700;
     font-size: var(--heading1);
-    color: var(--foreground);
+    color: var(--text-color);
     letter-spacing: -2.5%;
     line-height: var(--heading1);
 }
