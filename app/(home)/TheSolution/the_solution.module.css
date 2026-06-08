@@ -14,16 +14,184 @@
     margin: 12px;
 }
 
-@media (max-width: 640px) {
-    .wrapper {
-        padding-block: 40px;
-    }
+.card{
+    display: flex;
+    flex-direction: column;
+    width: 90vw; 
+    height: 20vw;
+    justify-content: space-between;
+    padding: 24px;
+    z-index: 10;
+    background: var(--secondary-green)
+}
+
+.rejection_card{
+    display: flex;
+    flex-direction: row;
+    width: 90vw; 
+    height: 20vw;
+    justify-content: space-between;
+    padding: 24px;
+    z-index: 10;
+    gap: 24px;
+    background: var(--primary-red);
+}
+
+.accepted_tag {
+    font-family: var(--font-fustat);
+    border-radius: 0px;
+    border: 0.5px solid color-mix(in srgb, var(--primary-green) 70%, transparent);
+    background: radial-gradient(circle at center, var(--secondary-green) 0%, var(--primary-green) 300%);
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--caption);
+    font-weight: 400;
+    letter-spacing: 10%;
+    color: var(--text-color);
+    text-transform: uppercase;
+    padding: 8px 12px;
+}
+
+.issues_tag {
+    font-family: var(--font-fustat);
+    border-radius: 0px;
+    border: 0.5px solid color-mix(in srgb, var(--primary-yellow) 70%, transparent);
+    background: radial-gradient(circle at center, var(--secondary-yellow) 0%, var(--primary-yellow) 300%);
+    outline: none;
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--caption);
+    font-weight: 400;
+    letter-spacing: 10%;
+    color: var(--text-color);
+    text-transform: uppercase;
+    padding: 8px 16px;
+}
+
+.accepted_tag_text {
+    margin-top: 1.5px;
 }
 
 .heading {
     font-family: var(--font-fustat);
     font-weight: 700;
-    font-size: var(--heading1);
+    font-size: var(--heading2);
     letter-spacing: -2.5%;
-    line-height: var(--heading1);
+    line-height: var(--heading2);
+}
+
+.solution_card_title {
+    font-family: var(--font-fustat);
+    font-weight: 700;
+    letter-spacing: -2.5%;
+    font-size: var(--heading4);
+    line-height: var(--heading4);
+    color: var(--text-color);
+}
+
+.rejection_headline {
+    font-family: var(--font-fustat);
+    font-weight: 700;
+    letter-spacing: -2.5%;
+    font-size: var(--heading4);
+    line-height: var(--heading4);
+    color: var(--tertiary-red);
+}
+
+.rejection_description {
+    font-family: var(--font-fustat);
+    font-weight: 400;
+    letter-spacing: 0%;
+    font-size: var(--button);
+    color: color-mix(in srgb, var(--tertiary-red) 70%, transparent);
+}
+
+.description {
+    font-family: var(--font-fustat);
+    font-weight: 400;
+    letter-spacing: 0%;
+    font-size: var(--button);
+    color: color-mix(in srgb, var(--text-color) 70%, transparent);
+}
+
+.or{
+    font-family: var(--font-fustat);
+    font-weight: 700;
+    letter-spacing: 20%;
+    font-size: var(--heading4);
+    color: var(--text-color);
+}
+
+
+@media (max-width: 1024){
+
+    .accepted_tag {
+        gap: 6px;
+        padding: 4px 8px;
+    }
+    
+    .issues_tag {
+        gap: 6px;
+        padding: 4px 8px;
+    }
+
+    .card{
+        height: 30vw;
+        padding: 16px;
+    }
+
+    .rejection_card{
+        height: 30vw;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 748px){
+    .solution_card_title {
+        font-size: var(--heading3);
+        line-height: var(--heading3);
+    }
+
+    .rejection_headline {
+        font-size: var(--heading3);
+        line-height: var(--heading3);
+    }
+}
+
+@media (max-width: 640px) {
+    .wrapper {
+        padding-block: 40px;
+    }
+    
+    .accepted_tag {
+        gap: 6px;
+        padding: 4px 8px;
+    }
+    
+    .issues_tag {
+        gap: 6px;
+        padding: 4px 8px;
+    }
+
+    .card{
+        width: 100%;
+        height: auto;
+        gap: 20vw;
+        padding: 12px;
+    }
+
+    .rejection_card{
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+    }
 }
