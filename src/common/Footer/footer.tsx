@@ -10,8 +10,8 @@ export default function Footer() {
         {name: "Linkedin", link: ""},
     ]
     const sitemap = [
-        {name: "Home", link: ""},
-        {name: "Contact Us", link: ""},
+        {name: "Home", link: "/"},
+        {name: "Contact Us", link: "/contact-us"},
         {name: "Apply For Loan", link: ""},
         {name: "Free Consultation", link: ""},
         {name: "Banker Partnership Program", link: ""},

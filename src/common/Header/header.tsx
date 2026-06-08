@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './header.module.css';
+import Link from 'next/link';
 
 export default function Header() {
     const [visible, setVisible] = useState(true);
@@ -29,11 +30,11 @@ export default function Header() {
     }, []);
 
     const menuItems = [
-        { image: '/loan_grid_images/cash_coins_white_band_fixed_transparent.svg', label: 'Home', selected: false },
-        { image: '/loan_grid_images/house_icon_transparent.png', label: 'Contact Us', selected: false },
-        { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Free Consultation', selected: false },
-        { image: '/loan_grid_images/gold_loan_icon_transparent.svg', label: 'Apply For Loan', selected: false },
-        { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Banker Partnership Program', selected: false },
+        { image: '/loan_grid_images/cash_coins_white_band_fixed_transparent.svg', label: 'Home', selected: false, href: "/" },
+        { image: '/loan_grid_images/house_icon_transparent.png', label: 'Contact Us', selected: false, href: "/contact-us" },
+        { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Free Consultation', selected: false, href: "" },
+        { image: '/loan_grid_images/gold_loan_icon_transparent.svg', label: 'Apply For Loan', selected: false, href: "" },
+        { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Banker Partnership Program', selected: false, href: "" },
     ]
 
     return (
@@ -45,9 +46,9 @@ export default function Header() {
                 <i className="ti ti-menu-2 text-white md:hidden visible self-center" style={{ fontSize: '24px' }}></i>
                 <div className='flex-row gap-8 align-middle md:flex hidden'>
                     {menuItems.map((menu) => (
-                        <div key={menu.label} className={`${menu.selected ? styles.menu_item_selected : styles.menu_item}`}>
+                        <Link key={menu.label} href={menu.href} className={`${menu.selected ? styles.menu_item_selected : styles.menu_item}`}>
                             {menu.label}
-                        </div>
+                        </Link>
                     ))}
                 </div>
                 <img
