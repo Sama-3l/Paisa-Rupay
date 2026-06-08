@@ -16,7 +16,7 @@ export default function Header() {
             <i className="ti ti-menu-2 text-white md:hidden visible self-center" style={{ fontSize: '24px' }}></i>
             <div className='flex-row gap-8 align-middle md:flex hidden'>
                 {menuItems.map((menu) => (
-                    <div className={`${menu.selected ? styles.menu_item_selected : styles.menu_item }`}>
+                    <div key={menu.label} className={`${menu.selected ? styles.menu_item_selected : styles.menu_item }`}>
                         {menu.label}
                     </div>
                 ))}
