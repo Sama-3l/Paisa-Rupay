@@ -4,7 +4,7 @@
   --background: #161316;
   --primary: #FF6D28;
   --secondary: #453027;
-  --text-color: #FFFFFF; 
+  --text-color: #FFFFFF;
   --placeholder: #BABABA;
 
   --primaryGreen: #00E5B5;
@@ -18,7 +18,7 @@
   --secondaryRed: #BA7517;
   --tertiaryRed: #854F0B;
 
-  --card: #453027;  
+  --card: #453027;
 
   --heading1: 48px;
   --heading2: 40px;
@@ -64,20 +64,20 @@
   
 } */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif; 
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-button{
+button {
   padding-inline: 16px;
   padding-block: 12px;
   background: var(--primary);
@@ -91,7 +91,7 @@ button{
 }
 
 @media (max-width: 768px) {
-  button{
+  button {
     font-weight: 700;
   }
 }
