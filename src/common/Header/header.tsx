@@ -41,7 +41,7 @@ export default function Header() {
             className='w-full sticky top-0 bg-(--background) transition-transform duration-300 z-50 items-center'
             style={{ transform: visible ? 'translateY(0)' : 'translateY(-100%)' }}
         >
-            <div className='flex flex-row sm:px-0 px-4 justify-between sm:max-w-[90%] w-full py-8 mx-auto'>
+            <div className='flex flex-row sm:px-0 px-4 justify-between sm:max-w-[90%] w-full py-6 mx-auto'>
                 <i className="ti ti-menu-2 text-white md:hidden visible self-center" style={{ fontSize: '24px' }}></i>
                 <div className='flex-row gap-8 align-middle md:flex hidden'>
                     {menuItems.map((menu) => (
