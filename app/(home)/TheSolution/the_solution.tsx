@@ -75,12 +75,12 @@ export default function TheSolution() {
         <div className={styles.heading}>We always chase a clear outcome <br className='sm:flex hidden' />rather than an endless run</div>
         <div className='flex md:flex-row flex-col lg:gap-10 md:gap-8 sm:gap-6 gap-4 items-center'>
           <ApprovedCard />
-          <div className='w-full flex flex-row gap-2 items-center sm:hidden'>
+          <div className='w-full flex flex-row gap-2 items-center md:hidden'>
             <div className='h-[0.5px] bg-(--background) w-full' style={{opacity: 0.5}}></div>
             <div className={styles.or}>OR</div>
             <div className='h-[0.5px] bg-(--background) w-full' style={{opacity: 0.5}}></div>
           </div>
-          <div className={`${styles.or} hidden sm:flex`}>OR</div>
+          <div className={`${styles.or} hidden md:flex`}>OR</div>
           <IssuesFound />
         </div>
         <div className={styles.rejection_card}>
