@@ -4,6 +4,7 @@ import OurLoans from './OurLoans/our_loans';
 import Consultation from './Consultation/consultation';
 import ImageSection from './ImageSection/image_section';
 import TheProblem from './TheProblem/the_problem';
+import TheSolution from './TheSolution/the_solution';
 
 
 // export default function Home() {
@@ -27,6 +28,7 @@ export default function HomePage() {
         <Consultation />
         <ImageSection />
         <TheProblem />
+        <TheSolution />
     </>
   )
 }

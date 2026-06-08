@@ -1,15 +1,17 @@
-.menu_item{
+.menu_item {
     font-family: var(--font-literata-regular);
     font-size: var(--button);
+    color: var(--foreground);
     letter-spacing: -5%;
     font-weight: 200;
     align-self: center;
     cursor: pointer;
 }
 
-.menu_item_selected{
+.menu_item_selected {
     font-family: var(--font-literata-regular);
     font-size: var(--button);
+    color: var(--foreground);
     letter-spacing: -5%;
     font-weight: 600;
     align-self: center;

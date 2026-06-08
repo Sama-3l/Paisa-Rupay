@@ -1,0 +1,23 @@
+.headline {
+    font-family: var(--font-fustat);
+    font-weight: 800;
+    letter-spacing: -5%;
+    font-size: var(--heading3);
+    line-height: var(--heading2);
+    color: var(--foreground);
+}
+
+.number {
+    font-family: var(--font-literata-italic);
+    letter-spacing: 5%;
+    font-size: var(--button);
+    color: var(--foreground);
+}
+
+.description {
+    font-family: var(--font-fustat);
+    font-weight: 400;
+    letter-spacing: -5%;
+    font-size: var(--heading4);
+    color: color-mix(in srgb, var(--foreground) 70%, transparent);
+}

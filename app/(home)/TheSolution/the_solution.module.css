@@ -1,0 +1,29 @@
+.wrapper {
+    width: 100%;
+    background: var(--primary);
+    padding-block: 80px;
+}
+
+.subheading {
+    font-family: var(--font-fustat);
+    font-size: var(--button);
+    color: color-mix(in srgb, var(--background) 50%, transparent);
+    text-align: center;
+    letter-spacing: -2.5%;
+    font-weight: 500;
+    margin: 12px;
+}
+
+@media (max-width: 640px) {
+    .wrapper {
+        padding-block: 40px;
+    }
+}
+
+.heading {
+    font-family: var(--font-fustat);
+    font-weight: 700;
+    font-size: var(--heading1);
+    letter-spacing: -2.5%;
+    line-height: var(--heading1);
+}

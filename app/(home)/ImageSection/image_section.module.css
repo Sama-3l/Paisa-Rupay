@@ -1,16 +1,18 @@
-.image_text_top{
+.image_text_top {
     font-family: var(--font-literata-regular);
     font-size: var(--heading2);
     align-self: flex-start;
     line-height: var(--heading2);
+    color: var(--foreground);
     letter-spacing: -7.5%;
     font-weight: 300;
 }
 
-.image_text_bottom{
+.image_text_bottom {
     font-family: var(--font-fustat);
     font-size: var(--heading4);
     align-self: flex-end;
+    color: var(--foreground);
     line-height: var(--heading4);
     letter-spacing: -2.5%;
     font-weight: 300;
