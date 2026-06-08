@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/src/common/Header/header";
+import Footer from "@/src/common/Footer/footer";
 
 const literataItalic = localFont({
   src: '../fonts/Literata/Literata-Italic-VariableFont.ttf',
@@ -54,6 +55,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

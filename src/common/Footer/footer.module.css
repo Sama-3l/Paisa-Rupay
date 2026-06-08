@@ -1,0 +1,13 @@
+.footer_links{
+    font-family: var(--font-literata-regular);
+    font-size: var(--caption);
+    color: var(--text-color);
+    letter-spacing: -5%;
+}
+
+.copyright{
+    font-family: var(--font-literata-regular);
+    font-size: var(--copyright);
+    color: var(--text-color);
+    letter-spacing: -5%;
+}

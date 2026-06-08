@@ -28,6 +28,7 @@
   --paragraph: 12px;
   --caption: 12px;
   --button: 16px;
+  --copyright: 12px;
 }
 
 @media (max-width: 1024px) {
@@ -40,6 +41,7 @@
     --paragraph: 13px;
     --caption: 11px;
     --button: 15px;
+    --copyright: 10px;
   }
 }
 
@@ -54,6 +56,7 @@
     --paragraph: 12px;
     --caption: 10px;
     --button: 10px;
+    --copyright: 8px;
   }
 }
 
