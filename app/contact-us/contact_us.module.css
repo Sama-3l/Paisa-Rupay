@@ -1,0 +1,25 @@
+.hero_text{
+    font-family: var(--font-literata-italic);
+    font-size: var(--heading5);
+    font-weight: 400;
+}
+
+.description {
+    width: 60%;
+    padding-bottom: 32px;
+    font-family: var(--font-fustat);
+    font-size: var(--heading5);
+    line-height: var(--heading5);
+    font-weight: 400;
+    letter-spacing: -2.5%;
+    color: var(--placeholder);
+}
+
+@media (max-width: 640px) {
+    .description {
+        width: 100%;
+        padding-inline: 16px;
+        font-size: var(--paragraph);
+        line-height: 1.5;
+    }
+}

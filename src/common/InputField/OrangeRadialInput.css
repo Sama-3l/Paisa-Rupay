@@ -17,6 +17,34 @@
 }
 
 .orange-radial-input:focus {
-  border-width: 1px;
+  border-width: 2px;
   border-color: rgba(var(--radial-rgb, 255, 109, 40), 1);
+}
+
+.input_field_label {
+  font-family: var(--font-fustat);
+  font-size: var(--heading5);
+  font-weight: 500;
+  letter-spacing: -5%;
+  color: var(--text-color);
+}
+
+.input_field_required {
+  font-family: var(--font-fustat);
+  font-size: var(--paragraph);
+  font-weight: 500;
+  letter-spacing: -5%;
+  color: var(--text-color);
+}
+
+@media (max-width: 640px) {
+  .input_field_label {
+    font-size: var(--paragraph);
+    letter-spacing: -5%;
+  }
+
+  .input_field_required {
+    font-size: var(--caption);
+    letter-spacing: -5%;
+  }
 }
