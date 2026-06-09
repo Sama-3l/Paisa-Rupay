@@ -1,4 +1,4 @@
-.guarantee{
+.guarantee {
     border-width: 1px;
     border-color: color-mix(in srgb, var(--tertiary-green) 100%, transparent);
     border-radius: 18px;
@@ -9,7 +9,7 @@
     padding: 24px;
 }
 
-.text{
+.text {
     font-family: var(--font-fustat);
     font-size: var(--heading5);
     line-height: var(--heading5);
@@ -18,14 +18,27 @@
 }
 
 @media (max-width: 748px) {
-    .guarantee{
+    .guarantee {
         border-radius: 12px;
         gap: 12px;
         padding: 12px;
     }
 
-    .text{
+    .text {
         letter-spacing: 0%;
         line-height: 1.2;
+    }
+}
+
+@media (max-width: 1024px) {
+    .guarantee {
+        border-radius: 12px;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .text {
+        font-size: var(--paragraph);
+        line-height: 1.5;
     }
 }

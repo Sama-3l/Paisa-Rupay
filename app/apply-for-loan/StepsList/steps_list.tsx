@@ -21,7 +21,7 @@ const steps = [
 
 export default function StepsList() {
   return (
-    <div className="flex flex-col mt-20">
+    <div className="flex flex-col md:mt-20 mt-15">
       {steps.map((step, index) => (
         <div key={index} className="flex flex-row gap-4">
 
@@ -42,7 +42,7 @@ export default function StepsList() {
           </div>
 
           {/* Right — text content */}
-          <div className="pb-20 sm:pb-40 pt-1">
+          <div className={`${index === steps.length - 1 ? 'pb-0' : 'sm:pb-40 pb-20'} pt-1`}>
             <h3 className={styles.step_heading}>
               {step.title}
             </h3>

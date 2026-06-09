@@ -30,8 +30,10 @@ export default async function LoanApplication({ searchParams }: PageProps) {
       </p>
       <ApplyForLoan preselected={preselected} />
       <SectionHeading caption="WHAT HAPPENS NEXT" heading={<>Here is what the <br />next 24 hours look like.</>} />
-      <StepsList />
-      <Guarantees />
+      <div className='flex md:flex-row flex-col justify-between'>
+        <StepsList />
+        <Guarantees />
+      </div>
     </div>
   );
 }
