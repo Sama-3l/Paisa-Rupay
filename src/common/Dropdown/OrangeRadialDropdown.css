@@ -1,0 +1,67 @@
+/* OrangeRadialDropdown.css */
+
+.orange-radial-dropdown-container {
+  width: 100%;
+}
+
+.orange-radial-dropdown-active {
+  border-width: 2px !important;
+  border-color: rgba(var(--radial-rgb, 255, 109, 40), 1) !important;
+}
+
+.orange-radial-dropdown-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: var(--background, #161316);
+  border: 0.5px solid rgba(var(--radial-rgb, 255, 109, 40), 0.5);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  animation: fadeInDropdown 0.15s ease-out;
+}
+
+.orange-radial-dropdown-item {
+  padding: 0.75rem 1rem;
+  color: var(--text-color, #FFFFFF);
+  cursor: pointer;
+  font-family: var(--font-fustat);
+  letter-spacing: -2.5%;
+  font-size: var(--button, 16px);
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.orange-radial-dropdown-item:hover {
+  background: rgba(var(--radial-rgb, 255, 109, 40), 0.15);
+  color: var(--primary, #FF6D28);
+}
+
+.orange-radial-dropdown-item.selected {
+  background: rgba(var(--radial-rgb, 255, 109, 40), 0.3);
+  color: var(--primary, #FF6D28);
+  font-weight: 600;
+}
+
+@keyframes fadeInDropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .orange-radial-dropdown-item {
+    padding: 12px;
+    font-size: var(--paragraph, 12px);
+  }
+}

@@ -25,7 +25,7 @@
   --heading3: 32px;
   --heading4: 24px;
   --heading5: 20px;
-  --paragraph: 12px;
+  --paragraph: 16px;
   --caption: 12px;
   --button: 16px;
   --copyright: 12px;
@@ -55,7 +55,7 @@
     --heading5: 12px;
     --paragraph: 12px;
     --caption: 10px;
-    --button: 10px;
+    --button: 12px;
     --copyright: 8px;
   }
 }

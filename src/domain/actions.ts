@@ -1,19 +1,11 @@
 'use server';
 
 import { headers } from 'next/headers';
-import { validateContactInputs, isRateLimited } from './security';
+import { validateContactInputs, validateLoanInputs, isRateLimited } from './security';
 
-export interface FormState {
-  success: boolean;
-  message?: string;
-  errors?: {
-    email?: string;
-    name?: string;
-    phone?: string;
-    message?: string;
-  };
-  globalError?: string;
-}
+import { ContactFormState, LoanFormState, LOAN_OPTIONS } from '@/src/lib/types';
+
+export type FormState = ContactFormState;
 
 /**
  * Server Action to submit the contact form securely.
@@ -87,6 +79,81 @@ export async function submitContactForm(
 
   } catch (error) {
     console.error('[Form Submission Server Error]', error);
+    return {
+      success: false,
+      globalError: 'An unexpected server error occurred. Please try again later.',
+    };
+  }
+}
+
+/**
+ * Server Action to submit the loan application form securely.
+ */
+export async function submitLoanForm(
+  prevState: LoanFormState,
+  formData: FormData
+): Promise<LoanFormState> {
+  try {
+    // 1. Retrieve Client IP for Rate Limiting
+    const headersList = await headers(); // Next.js async request API
+    const xForwardedFor = headersList.get('x-forwarded-for');
+    const xRealIp = headersList.get('x-real-ip');
+
+    // Resolve client IP (fall back to localhost/unknown if proxy headers are absent)
+    let clientIp = '127.0.0.1';
+    if (xForwardedFor) {
+      clientIp = xForwardedFor.split(',')[0].trim();
+    } else if (xRealIp) {
+      clientIp = xRealIp.trim();
+    }
+
+    // 2. Perform Rate Limiting check
+    if (isRateLimited(clientIp)) {
+      return {
+        success: false,
+        globalError: 'Too many submissions. Please wait 5 minutes and try again.',
+      };
+    }
+
+    // 3. Extract Form Fields
+    const name = formData.get('name') as string | null;
+    const phone = formData.get('phone') as string | null;
+    const loanType = formData.get('loanType') as string | null;
+
+    // 4. Validate & Sanitize Inputs
+    const validation = validateLoanInputs(
+      {
+        name: name || undefined,
+        phone: phone || undefined,
+        loanType: loanType || undefined,
+      },
+      LOAN_OPTIONS
+    );
+
+    if (!validation.isValid) {
+      return {
+        success: false,
+        errors: validation.errors,
+        globalError: 'Please fix the errors below.',
+      };
+    }
+
+    // 5. Submit Form Data
+    // Log safe, sanitized data on the server.
+    console.log('[Loan Application Submission Success]', {
+      ip: clientIp,
+      timestamp: new Date().toISOString(),
+      data: validation.sanitizedData,
+    });
+
+    // Return only the exact success status and message required by the client UI
+    return {
+      success: true,
+      message: 'Thank you! Your application has been received. Our loan advisor will call you within 24 hours.',
+    };
+
+  } catch (error) {
+    console.error('[Loan Submission Server Error]', error);
     return {
       success: false,
       globalError: 'An unexpected server error occurred. Please try again later.',

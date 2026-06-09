@@ -24,19 +24,13 @@ export function sanitizeText(text: string): string {
 // 2. Input Validation Schema & Validator
 // ---------------------------------------------------------
 
-export interface ContactInputData {
-  email: string;
-  name: string;
-  phone?: string;
-  message?: string;
-}
-
-export interface ValidationErrors {
-  email?: string;
-  name?: string;
-  phone?: string;
-  message?: string;
-}
+import { 
+  ContactInputData, 
+  ContactValidationErrors as ValidationErrors,
+  LoanInputData,
+  LoanValidationErrors,
+  LoanOption
+} from '@/src/lib/types';
 
 /**
  * Validates form inputs server-side without external dependencies.
@@ -104,6 +98,73 @@ export function validateContactInputs(data: Partial<ContactInputData>): {
         name: sanitizeText(name),
         phone: phone ? sanitizeText(phone) : undefined,
         message: message ? sanitizeText(message) : undefined,
+      },
+    };
+  }
+
+  return {
+    isValid: false,
+    errors,
+  };
+}
+
+/**
+ * Validates loan form inputs server-side without external dependencies.
+ */
+export function validateLoanInputs(
+  data: Partial<LoanInputData>,
+  loanOptions: LoanOption[]
+): {
+  isValid: boolean;
+  errors: LoanValidationErrors;
+  sanitizedData?: LoanInputData;
+} {
+  const errors: LoanValidationErrors = {};
+
+  // 1. Validate Name (Required)
+  const name = (data.name || '').trim();
+  if (!name) {
+    errors.name = 'Name is required.';
+  } else if (name.length < 2) {
+    errors.name = 'Name must be at least 2 characters.';
+  } else if (name.length > 100) {
+    errors.name = 'Name must be under 100 characters.';
+  }
+
+  // 2. Validate Phone Number (Required)
+  const phone = (data.phone || '').trim();
+  if (!phone) {
+    errors.phone = 'Phone number is required.';
+  } else {
+    if (phone.length > 20) {
+      errors.phone = 'Phone number must be under 20 characters.';
+    } else {
+      const phoneRegex = /^\+?[0-9\s\-()]{7,20}$/;
+      if (!phoneRegex.test(phone)) {
+        errors.phone = 'Please enter a valid phone number.';
+      }
+    }
+  }
+
+  // 3. Validate Loan Type (Required)
+  const loanType = (data.loanType || '').trim();
+  const validValues = loanOptions.map((opt) => opt.value);
+  if (!loanType) {
+    errors.loanType = 'Loan type is required.';
+  } else if (!validValues.includes(loanType)) {
+    errors.loanType = 'Please select a valid loan type.';
+  }
+
+  const isValid = Object.keys(errors).length === 0;
+
+  if (isValid) {
+    return {
+      isValid: true,
+      errors,
+      sanitizedData: {
+        name: sanitizeText(name),
+        phone: sanitizeText(phone),
+        loanType: sanitizeText(loanType),
       },
     };
   }

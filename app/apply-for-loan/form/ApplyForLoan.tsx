@@ -2,24 +2,30 @@
 
 import React, { useActionState } from 'react';
 import { OrangeRadialInput } from '@/src/common/InputField/OrangeRadialInput';
-import { FormState, submitContactForm } from '@/src/domain/actions';
-import styles from './contact_form.module.css';
+import { OrangeRadialDropdown } from '@/src/common/Dropdown/OrangeRadialDropdown';
+import { submitLoanForm } from '@/src/domain/actions';
+import { LoanFormState, LOAN_OPTIONS } from '@/src/lib/types';
+import styles from '../../contact-us/form/contact_form.module.css';
 
-const initialState: FormState = {
+const initialState: LoanFormState = {
   success: false,
 };
 
+interface ApplyForLoanProps {
+  preselected?: string;
+}
+
 /**
- * Client-side component managing the contact form.
+ * Client-side component managing the Loan Application form.
  * Uses React 19 useActionState to manage state (idle, pending, success, error)
  * without sacrificing accessibility and SEO structure of page.tsx.
  */
-export default function ContactForm() {
+export default function ApplyForLoan({ preselected = '' }: ApplyForLoanProps) {
   // Hook into our Server Action to receive form state outputs (success, errors, pending)
-  const [state, formAction, isPending] = useActionState(submitContactForm, initialState);
+  const [state, formAction, isPending] = useActionState(submitLoanForm, initialState);
 
   return (
-    <div className="sm:w-[90%] w-full">
+    <div className="w-full mt-10 mb-20">
       {state.success ? (
         /* SUCCESS STATE */
         /* Styled to match the solution cards green-gradient aesthetic */
@@ -34,7 +40,7 @@ export default function ContactForm() {
             <i className="ti ti-circle-check text-4xl text-white"></i>
           </div>
           <h3 className={styles.submitted_headline}>
-            Message Sent Successfully!
+            Application Submitted!
           </h3>
           <p className={styles.submitted_para}>
             {state.message}
@@ -42,7 +48,7 @@ export default function ContactForm() {
         </div>
       ) : (
         /* ACTIVE / IDLE / LOADING STATE */
-        <form action={formAction} className="flex flex-col sm:w-[60%] w-full sm:px-0 px-4 gap-6 mx-auto">
+        <form action={formAction} className="flex flex-col w-full gap-6 mx-auto">
 
           {/* GLOBAL ERROR / RATE LIMIT STATE */}
           {/* Styled in accordance with the project's rejection tag & card aesthetic */}
@@ -59,35 +65,15 @@ export default function ContactForm() {
             </div>
           )}
 
-          {/* EMAIL FIELD */}
-          <div>
-            <OrangeRadialInput
-              title="email"
-              name="email"
-              type="email"
-              placeholder="johndoe@gmail.com"
-              required={true}
-              disabled={isPending}
-            />
-            {state.errors?.email && (
-              <span className="text-[#FF5C5C] text-xs font-(--font-fustat) mt-1 block">
-                {state.errors.email}
-              </span>
-            )}
-          </div>
-
           {/* NAME FIELD */}
           <div>
             <OrangeRadialInput
-              title="name"
+              title="legal full name"
               name="name"
               type="text"
-              placeholder="John Doe"
+              placeholder="As on your PAN card"
               required={true}
               disabled={isPending}
-              style={{
-                fontFamily: "var(--font-fustat)"
-              }}
             />
             {state.errors?.name && (
               <span className="text-[#FF5C5C] text-xs font-(--font-fustat) mt-1 block">
@@ -96,14 +82,14 @@ export default function ContactForm() {
             )}
           </div>
 
-          {/* PHONE FIELD (Optional) */}
+          {/* PHONE FIELD */}
           <div>
             <OrangeRadialInput
               title="phone number"
               name="phone"
               type="tel"
               placeholder="9876543210"
-              required={false}
+              required={true}
               maxLength={10}
               disabled={isPending}
             />
@@ -114,20 +100,20 @@ export default function ContactForm() {
             )}
           </div>
 
-          {/* MESSAGE FIELD (Optional) */}
+          {/* LOAN TYPE DROPDOWN */}
           <div>
-            <OrangeRadialInput
-              title="what's on your mind?"
-              name="message"
-              placeholder="Let us know your queries..."
-              required={false}
-              multiline
-              rows={5}
+            <OrangeRadialDropdown
+              title="loan type"
+              name="loanType"
+              options={LOAN_OPTIONS}
+              required={true}
+              defaultValue={preselected}
+              placeholder="Select a loan type"
               disabled={isPending}
             />
-            {state.errors?.message && (
+            {state.errors?.loanType && (
               <span className="text-[#FF5C5C] text-xs font-(--font-fustat) mt-1 block">
-                {state.errors.message}
+                {state.errors.loanType}
               </span>
             )}
           </div>

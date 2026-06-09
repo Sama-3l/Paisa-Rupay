@@ -12,7 +12,7 @@ export default function Footer() {
     const sitemap = [
         {name: "Home", link: "/"},
         {name: "Contact Us", link: "/contact-us"},
-        {name: "Apply For Loan", link: ""},
+        {name: "Apply For Loan", link: "/apply-for-loan"},
         {name: "Free Consultation", link: ""},
         {name: "Banker Partnership Program", link: ""},
     ]
@@ -53,7 +53,7 @@ export default function Footer() {
                     ))}
                 </div>
             </div>
-            <div className='flex flex-col gap-4'>
+            <div className='flex flex-col gap-4 text-right'>
                 {terms.map((term) => (
                     <Link href={term.link}>{term.name}</Link>
                 ))}

@@ -1,0 +1,31 @@
+.guarantee{
+    border-width: 1px;
+    border-color: color-mix(in srgb, var(--tertiary-green) 100%, transparent);
+    border-radius: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+}
+
+.text{
+    font-family: var(--font-fustat);
+    font-size: var(--heading5);
+    line-height: var(--heading5);
+    letter-spacing: -2.5%;
+    color: var(--text-color);
+}
+
+@media (max-width: 748px) {
+    .guarantee{
+        border-radius: 12px;
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .text{
+        letter-spacing: 0%;
+        line-height: 1.2;
+    }
+}
