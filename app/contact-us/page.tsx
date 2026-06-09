@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import styles from './contact_us.module.css';
 import SectionHeading from '@/src/common/section_heading/SectionHeading';
-import ContactForm from './ContactForm';
+import ContactForm from './form/ContactForm';
 
 // SEO Best Practices: Metadata
 export const metadata: Metadata = {

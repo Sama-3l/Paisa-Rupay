@@ -3,6 +3,7 @@
 import React, { useActionState } from 'react';
 import { OrangeRadialInput } from '@/src/common/InputField/OrangeRadialInput';
 import { FormState, submitContactForm } from '@/src/domain/actions';
+import styles from './contact_form.module.css';
 
 const initialState: FormState = {
   success: false,
@@ -23,7 +24,7 @@ export default function ContactForm() {
         /* SUCCESS STATE */
         /* Styled to match the solution cards green-gradient aesthetic */
         <div 
-          className="flex flex-col items-center justify-center p-8 sm:p-12 text-center border border-solid transition-all duration-500 ease-out"
+          className="flex flex-col items-center justify-center p-8 sm:p-12 text-center border border-solid transition-all duration-500 ease-out mt-5"
           style={{
             borderColor: 'color-mix(in srgb, var(--primary-green) 70%, transparent)',
             background: 'radial-gradient(circle at center, var(--secondary-green) 0%, var(--primary-green) 300%)',
@@ -32,10 +33,10 @@ export default function ContactForm() {
           <div className="flex items-center justify-center w-16 h-16 rounded-full bg-white/10 mb-6">
             <i className="ti ti-circle-check text-4xl text-white"></i>
           </div>
-          <h3 className="text-2xl font-bold tracking-tight text-white mb-3 font-(--font-fustat)">
+          <h3 className={styles.submitted_headline}>
             Message Sent Successfully!
           </h3>
-          <p className="max-w-md text-white/90 text-sm leading-relaxed font-(--font-fustat)">
+          <p className={styles.submitted_para}>
             {state.message}
           </p>
         </div>
@@ -50,7 +51,7 @@ export default function ContactForm() {
               className="flex flex-col gap-2 p-4 border border-solid border-[#BA7517]/50 bg-[#FAEEDA] text-[#854F0B]"
               role="alert"
             >
-              <div className="font-bold flex items-center gap-2 font-(--font-fustat)">
+              <div className="font-bold flex items-center gap-2">
                 <i className="ti ti-alert-triangle text-lg"></i>
                 <span>Action Required</span>
               </div>
@@ -84,6 +85,9 @@ export default function ContactForm() {
               placeholder="John Doe" 
               required={true}
               disabled={isPending}
+              style={{
+                fontFamily: "var(--font-fustat)"
+              }}
             />
             {state.errors?.name && (
               <span className="text-[#FF5C5C] text-xs font-(--font-fustat) mt-1 block">
@@ -100,6 +104,7 @@ export default function ContactForm() {
               type="tel"
               placeholder="9876543210" 
               required={false}
+              maxLength={10}
               disabled={isPending}
             />
             {state.errors?.phone && (

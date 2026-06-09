@@ -37,6 +37,19 @@
   color: var(--text-color);
 }
 
+.orange-radial-input {
+  font-family: var(--font-fustat);
+  font-size: var(--button);
+  font-weight: 600;
+  letter-spacing: var(--input-letter-spacing);
+  color: var(--text-color);
+
+  &::placeholder {
+    color: var(--placeholder);
+    font-weight: 300;
+  }
+}
+
 @media (max-width: 640px) {
   .input_field_label {
     font-size: var(--paragraph);
