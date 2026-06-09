@@ -1,13 +1,14 @@
+import Link from 'next/link'
 import React from 'react'
 
 const loans = [
-    { image: '/loan_grid_images/cash_coins_white_band_fixed_transparent.svg', label: 'Personal Loan' },
-    { image: '/loan_grid_images/house_icon_transparent.png', label: 'House Loan' },
-    { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Car Loan' },
-    { image: '/loan_grid_images/gold_loan_icon_transparent.svg', label: 'Gold Loan' },
-    { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Loan against property' },
-  { image: '/loan_grid_images/business_loan_icon_transparent.svg', label: 'Business Loan' },
-  { image: '/loan_grid_images/other_loans_icon_transparent.svg', label: 'Other Loans' },
+    { image: '/loan_grid_images/cash_coins_white_band_fixed_transparent.svg', label: 'Personal Loan', href: '/apply-for-loan?loan=personal' },
+    { image: '/loan_grid_images/house_icon_transparent.png', label: 'House Loan', href: '/apply-for-loan?loan=house' },
+    { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Car Loan', href: '/apply-for-loan?loan=car' },
+    { image: '/loan_grid_images/gold_loan_icon_transparent.svg', label: 'Gold Loan', href: '/apply-for-loan?loan=gold' },
+    { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Loan against property', href: '/apply-for-loan?loan=property' },
+  { image: '/loan_grid_images/business_loan_icon_transparent.svg', label: 'Business Loan', href: '/apply-for-loan?loan=business' },
+  { image: '/loan_grid_images/other_loans_icon_transparent.svg', label: 'Other Loans', href: '/apply-for-loan?loan=other' },
 ]
 
 export default function LoanGrid() {
@@ -16,12 +17,12 @@ export default function LoanGrid() {
       {/* Desktop: single row */}
       <div className="hidden xl:flex justify-between">
         {loans.map((loan) => (
-          <div key={loan.label} className="flex flex-col items-center gap-2">
+          <Link key={loan.label} className="flex flex-col items-center gap-2 cursor-pointer" href={loan.href}>
             <img src={loan.image} alt={loan.label} className="h-18 w-auto object-contain" />
             <span className="text-center leading-5" style={{ fontFamily: 'var(--font-fustat)', fontSize: 'var(--button)' }}>
               {loan.label}
             </span>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -29,22 +30,22 @@ export default function LoanGrid() {
       <div className="xl:hidden flex flex-col gap-8">
         <div className="flex justify-between">
           {loans.slice(0, 4).map((loan) => (
-            <div key={loan.label} className="flex flex-col items-center gap-2">
+            <Link key={loan.label} className="flex flex-col items-center gap-2 cursor-pointer" href={loan.href}>
               <img src={loan.image} alt={loan.label} className="sm:h-18 h-10 w-auto object-contain" />
               <span className="text-center leading-(--button)" style={{ fontFamily: 'var(--font-fustat)', fontSize: 'var(--button)' }}>
                 {loan.label}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
         <div className="flex justify-around">
           {loans.slice(4).map((loan) => (
-            <div key={loan.label} className="flex flex-col items-center gap-2 w-[25%]">
+            <Link key={loan.label} className="flex flex-col items-center gap-2 w-[25%] cursor-pointer" href={loan.href}>
               <img src={loan.image} alt={loan.label} className="sm:h-18 h-10 w-auto object-contain" />
               <span className="text-center leading-(--button)" style={{ fontFamily: 'var(--font-fustat)', fontSize: 'var(--button)' }}>
                 {loan.label}
               </span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
