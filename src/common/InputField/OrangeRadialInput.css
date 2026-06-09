@@ -60,4 +60,8 @@
     font-size: var(--caption);
     letter-spacing: -5%;
   }
+  
+  .orange-radial-input {
+    padding: 12px;
+  }
 }
