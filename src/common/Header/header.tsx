@@ -32,8 +32,8 @@ export default function Header() {
     const menuItems = [
         { image: '/loan_grid_images/cash_coins_white_band_fixed_transparent.svg', label: 'Home', selected: false, href: "/" },
         { image: '/loan_grid_images/house_icon_transparent.png', label: 'Contact Us', selected: false, href: "/contact-us" },
-        { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Free Consultation', selected: false, href: "" },
         { image: '/loan_grid_images/gold_loan_icon_transparent.svg', label: 'Apply For Loan', selected: false, href: "/apply-for-loan" },
+        { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Free Consultation', selected: false, href: "" },
         { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Banker Partnership Program', selected: false, href: "" },
     ]
 
@@ -51,11 +51,13 @@ export default function Header() {
                         </Link>
                     ))}
                 </div>
+                <Link href="/">
                 <img
                     src="/logo/paisa_rupay_logo_v2.svg"
                     alt="Paisa Rupay logo"
                     className="md:h-10 h-8 w-auto object-contain cursor-pointer"
                 />
+                </Link>
             </div>
         </div>
     )
