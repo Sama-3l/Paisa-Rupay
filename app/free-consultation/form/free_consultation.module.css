@@ -1,0 +1,138 @@
+.submitted_headline {
+  font-family: var(--font-fustat);
+  color: var(--text-color);
+  font-size: var(--heading2);
+  font-weight: 600;
+  letter-spacing: -5%;
+  margin-bottom: 12px;
+}
+
+.submitted_para {
+  font-family: var(--font-fustat);
+  color: var(--placeholder);
+  font-size: var(--paragraph);
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Success State Styles */
+.success_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--primary-green) 70%, transparent);
+  background: radial-gradient(circle at center, var(--secondary-green) 0%, var(--primary-green) 300%);
+  transition: all 0.5s ease-out;
+  margin-top: 20px;
+}
+
+@media (min-width: 640px) {
+  .success_container {
+    padding: 48px;
+  }
+}
+
+.success_icon_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 24px;
+}
+
+.success_icon {
+  font-size: var(--heading3);
+  color: var(--text-color);
+}
+
+/* Global Error Alert Styles */
+.error_alert {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--secondary-red) 50%, transparent);
+  background-color: var(--primary-red);
+  color: var(--tertiary-red);
+}
+
+.error_alert_header {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--paragraph);
+}
+
+.error_alert_icon {
+  font-size: var(--paragraph);
+}
+
+.error_alert_text {
+  font-size: var(--caption);
+  font-family: var(--font-fustat);
+}
+
+/* Input Fields Errors */
+.field_error {
+  --error-red: #FF5C5C;
+  color: var(--error-red);
+  font-size: var(--caption);
+  font-family: var(--font-fustat);
+  margin-top: 4px;
+  display: block;
+}
+
+/* Form Action Button */
+.submit_button {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease-in-out;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.submit_button:hover {
+  opacity: 0.9;
+}
+
+.submit_button:active {
+  transform: scale(0.95);
+}
+
+.submit_button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.spinner {
+  animation: spin 1s linear infinite;
+  height: 20px;
+  width: 20px;
+  color: currentColor;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

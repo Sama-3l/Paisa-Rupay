@@ -58,3 +58,24 @@ export interface LoanFormState {
   errors?: LoanValidationErrors;
   globalError?: string;
 }
+
+// Consultation Form Types
+export interface ConsultationInputData {
+  name: string;
+  phone: string;
+  message?: string;
+}
+
+export interface ConsultationValidationErrors {
+  name?: string;
+  phone?: string;
+  message?: string;
+}
+
+export interface ConsultationFormState {
+  success: boolean;
+  message?: string;
+  errors?: ConsultationValidationErrors;
+  globalError?: string;
+}
+

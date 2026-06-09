@@ -29,7 +29,9 @@ import {
   ContactValidationErrors as ValidationErrors,
   LoanInputData,
   LoanValidationErrors,
-  LoanOption
+  LoanOption,
+  ConsultationInputData,
+  ConsultationValidationErrors
 } from '@/src/lib/types';
 
 /**
@@ -165,6 +167,69 @@ export function validateLoanInputs(
         name: sanitizeText(name),
         phone: sanitizeText(phone),
         loanType: sanitizeText(loanType),
+      },
+    };
+  }
+
+  return {
+    isValid: false,
+    errors,
+  };
+}
+
+/**
+ * Validates consultation form inputs server-side without external dependencies.
+ */
+export function validateConsultationInputs(
+  data: Partial<ConsultationInputData>
+): {
+  isValid: boolean;
+  errors: ConsultationValidationErrors;
+  sanitizedData?: ConsultationInputData;
+} {
+  const errors: ConsultationValidationErrors = {};
+
+  // 1. Validate Name (Required)
+  const name = (data.name || '').trim();
+  if (!name) {
+    errors.name = 'Name is required.';
+  } else if (name.length < 2) {
+    errors.name = 'Name must be at least 2 characters.';
+  } else if (name.length > 100) {
+    errors.name = 'Name must be under 100 characters.';
+  }
+
+  // 2. Validate Phone Number (Required)
+  const phone = (data.phone || '').trim();
+  if (!phone) {
+    errors.phone = 'Phone number is required.';
+  } else {
+    if (phone.length > 20) {
+      errors.phone = 'Phone number must be under 20 characters.';
+    } else {
+      const phoneRegex = /^\+?[0-9\s\-()]{7,20}$/;
+      if (!phoneRegex.test(phone)) {
+        errors.phone = 'Please enter a valid phone number.';
+      }
+    }
+  }
+
+  // 3. Validate Comment/Message (Optional)
+  const message = (data.message || '').trim();
+  if (message && message.length > 2000) {
+    errors.message = 'Comment must be under 2000 characters.';
+  }
+
+  const isValid = Object.keys(errors).length === 0;
+
+  if (isValid) {
+    return {
+      isValid: true,
+      errors,
+      sanitizedData: {
+        name: sanitizeText(name),
+        phone: sanitizeText(phone),
+        message: message ? sanitizeText(message) : undefined,
       },
     };
   }

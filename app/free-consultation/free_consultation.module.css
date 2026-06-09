@@ -1,0 +1,7 @@
+.para{
+    font-family: var(--font-fustat);
+    font-size: var(--paragraph);
+    letter-spacing: -0%;
+    color: var(--placeholder);
+    text-align: center;
+}
