@@ -52,7 +52,7 @@ export default function Header() {
                     ))}
                 </div>
                 <img
-                    src="./logo/paisa_rupay_logo_v2.svg"
+                    src="/logo/paisa_rupay_logo_v2.svg"
                     alt="Paisa Rupay logo"
                     className="md:h-10 h-8 w-auto object-contain cursor-pointer"
                 />
