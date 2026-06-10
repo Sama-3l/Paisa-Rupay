@@ -97,4 +97,30 @@ export interface BankerFormState {
   globalError?: string;
 }
 
+export interface ApplyForLoanFormData {
+  name: string;
+  type: 'apply for loan';
+  phone: string;
+  loanType: string;
+}
 
+export interface ContactUsFormData {
+  email: string;
+  name: string;
+  type: 'contact us';
+  phone?: string;
+  message?: string;
+}
+
+export interface BankerPartnershipFormData {
+  name: string;
+  type: 'banker partnership';
+  phone: string;
+}
+
+export interface FreeConsultationFormData {
+  name: string;
+  type: 'free consultation';
+  phone: string;
+  message: string;
+}

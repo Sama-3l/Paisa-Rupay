@@ -3,7 +3,7 @@
 import { headers } from 'next/headers';
 import { validateContactInputs, validateLoanInputs, validateConsultationInputs, validateBankerInputs, isRateLimited } from './security';
 
-import { ContactFormState, LoanFormState, ConsultationFormState, LOAN_OPTIONS, BankerFormState } from '@/src/lib/types';
+import { ContactFormState, LoanFormState, ConsultationFormState, LOAN_OPTIONS, BankerFormState, ContactUsFormData } from '@/src/lib/types';
 
 export type FormState = ContactFormState;
 
@@ -57,6 +57,29 @@ export async function submitContactForm(
         success: false,
         errors: validation.errors,
         globalError: 'Please fix the errors below.',
+      };
+    }
+
+    let formInfo = {
+      email: email || "",
+      name: name || "",
+      phone: phone || undefined,
+      message: message || "",
+    };
+
+    const response = await fetch(`${process.env.BACKEND_URL}/api/send_mail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({type: 'contact us', ...formInfo}),
+    })
+
+    if(response.status != 200){
+      console.error('[Form Submission Server Error]');
+      return {
+        success: false,
+        globalError: 'An unexpected server error occurred. Please try again later.',
       };
     }
 
@@ -138,6 +161,28 @@ export async function submitLoanForm(
       };
     }
 
+    let formInfo = {
+        name: name || "",
+        phone: phone || "",
+        loanType: loanType || "other",
+      }
+
+    const response = await fetch(`${process.env.BACKEND_URL}/api/send_mail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({type: 'apply for loan', ...formInfo}),
+    })
+
+    if(response.status != 200){
+      console.error('[Form Submission Server Error]');
+      return {
+        success: false,
+        globalError: 'An unexpected server error occurred. Please try again later.',
+      };
+    }
+
     // 5. Submit Form Data
     // Log safe, sanitized data on the server.
     console.log('[Loan Application Submission Success]', {
@@ -212,6 +257,28 @@ export async function submitConsultationForm(
       };
     }
 
+    let formInfo = {
+      name: name || "",
+      phone: phone || "",
+      message: message || "",
+    }
+
+    const response = await fetch(`${process.env.BACKEND_URL}/api/send_mail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({type: 'free consultation', ...formInfo}),
+    })
+
+    if(response.status != 200){
+      console.error('[Form Submission Server Error]');
+      return {
+        success: false,
+        globalError: 'An unexpected server error occurred. Please try again later.',
+      };
+    }
+
     // 5. Submit Form Data
     console.log('[Free Consultation Request Submission Success]', {
       ip: clientIp,
@@ -278,6 +345,27 @@ export async function submitBankerForm(
         success: false,
         errors: validation.errors,
         globalError: 'Please fix the errors below.',
+      };
+    }
+
+    let formInfo = {
+      name: name || "",
+      phone: phone || "",
+    }
+
+    const response = await fetch(`${process.env.BACKEND_URL}/api/send_mail`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({type: 'banker partnership', ...formInfo}),
+    })
+
+    if(response.status != 200){
+      console.error('[Form Submission Server Error]');
+      return {
+        success: false,
+        globalError: 'An unexpected server error occurred. Please try again later.',
       };
     }
 
