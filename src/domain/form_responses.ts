@@ -22,9 +22,9 @@ async function sendResponse(email : string){
       replyTo: 'contact@athenaventura.com',
       subject: `Thank you for contacting us.`,
       html: `
-        <p>See you soon, partne.</p>
+        <p>Thank you for reaching out to us</p>
         <br>
-        <p>But seriously, glad to receive a message. Expect a response soon, no matter what your message is.</p>
+        <p>We'll get back to you and help however we can.</p>
       `,
     });
   } catch (error) {
