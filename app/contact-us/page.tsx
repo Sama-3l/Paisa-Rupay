@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import styles from './contact_us.module.css';
 import SectionHeading from '@/src/common/section_heading/SectionHeading';
 import ContactForm from './form/ContactForm';
+import Image from 'next/image';
+import contactHeroImg from '@/public/contact_us/Contact_Us.png';
 
 // SEO Best Practices: Metadata
 export const metadata: Metadata = {
@@ -20,9 +22,10 @@ export default function ContactUs() {
     return (
         <div className='w-full'>
             <div className='relative'>
-                <img
-                    src="/contact_us/Contact_Us.png"
+                <Image
+                    src={contactHeroImg}
                     alt="Paisa Rupay customer service representatives assisting a client"
+                    priority
                     className="sm:h-[50vw] h-auto w-full object-cover object-[center-50%]"
                 />
 

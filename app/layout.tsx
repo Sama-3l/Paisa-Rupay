@@ -74,6 +74,8 @@ export default function RootLayout({
       className={`${literataItalic.variable} ${literataRegular.variable} ${fustat.variable} h-full antialiased`}
     >
       <head>
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"

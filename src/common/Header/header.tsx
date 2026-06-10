@@ -57,6 +57,7 @@ export default function Header() {
                 <Image
                     src={logoImg}
                     alt="Paisa Rupay logo"
+                    priority
                     className="md:h-10 h-8 w-auto object-contain cursor-pointer"
                 />
                 </Link>

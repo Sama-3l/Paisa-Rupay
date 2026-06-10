@@ -27,7 +27,7 @@ export default function LoanGrid() {
       <div className="hidden xl:flex justify-between">
         {loans.map((loan) => (
           <Link key={loan.label} className="flex flex-col items-center gap-2 cursor-pointer" href={loan.href}>
-            <Image src={loan.image} alt={loan.label} className="h-18 w-auto object-contain" />
+            <Image src={loan.image} alt={loan.label} priority className="h-18 w-auto object-contain" />
             <span className="text-center leading-5" style={{ fontFamily: 'var(--font-fustat)', fontSize: 'var(--button)' }}>
               {loan.label}
             </span>
@@ -40,7 +40,7 @@ export default function LoanGrid() {
         <div className="flex justify-between">
           {loans.slice(0, 4).map((loan) => (
             <Link key={loan.label} className="flex flex-col items-center gap-2 cursor-pointer" href={loan.href}>
-              <Image src={loan.image} alt={loan.label} className="sm:h-18 h-10 w-auto object-contain" />
+              <Image src={loan.image} alt={loan.label} priority className="sm:h-18 h-10 w-auto object-contain" />
               <span className="text-center leading-(--button)" style={{ fontFamily: 'var(--font-fustat)', fontSize: 'var(--button)' }}>
                 {loan.label}
               </span>
@@ -50,7 +50,7 @@ export default function LoanGrid() {
         <div className="flex justify-around">
           {loans.slice(4).map((loan) => (
             <Link key={loan.label} className="flex flex-col items-center gap-2 w-[25%] cursor-pointer" href={loan.href}>
-              <Image src={loan.image} alt={loan.label} className="sm:h-18 h-10 w-auto object-contain" />
+              <Image src={loan.image} alt={loan.label} priority className="sm:h-18 h-10 w-auto object-contain" />
               <span className="text-center leading-(--button)" style={{ fontFamily: 'var(--font-fustat)', fontSize: 'var(--button)' }}>
                 {loan.label}
               </span>
