@@ -34,7 +34,7 @@ export default function Header() {
         { image: '/loan_grid_images/house_icon_transparent.png', label: 'Contact Us', selected: false, href: "/contact-us" },
         { image: '/loan_grid_images/gold_loan_icon_transparent.svg', label: 'Apply For Loan', selected: false, href: "/apply-for-loan" },
         { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Free Consultation', selected: false, href: "/free-consultation" },
-        { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Banker Partnership Program', selected: false, href: "" },
+        { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Banker Partnership Program', selected: false, href: "/banker-partnership" },
     ]
 
     return (

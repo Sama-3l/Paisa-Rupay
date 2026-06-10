@@ -14,7 +14,7 @@ export default function Footer() {
         {name: "Contact Us", link: "/contact-us"},
         {name: "Apply For Loan", link: "/apply-for-loan"},
         {name: "Free Consultation", link: "/free-consultation"},
-        {name: "Banker Partnership Program", link: ""},
+        {name: "Banker Partnership Program", link: "/banker-partnership"},
     ]
     const terms = [
         {name: "Terms and Policies", link: ""},

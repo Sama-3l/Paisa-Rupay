@@ -1,7 +1,7 @@
 // StepsList.tsx
 import styles from './steps_list.module.css';
 
-const steps = [
+const stepsList = [
   {
     title: "Your advisor calls you back",
     description:
@@ -19,16 +19,16 @@ const steps = [
   },
 ];
 
-export default function StepsList() {
+export default function StepsList({margin = "md:mt-20 mt-15", steps = stepsList } : {margin?: string, steps?: {title : string, description : string}[]}) {
   return (
-    <div className="flex flex-col md:mt-20 mt-15">
+    <div className={`flex flex-col ${margin}`}>
       {steps.map((step, index) => (
         <div key={index} className="flex flex-row gap-4">
 
           {/* Left — number circle + connecting line */}
           <div className="flex flex-col items-center">
             <div
-              className={`flex items-center justify-center w-10 h-10 rounded-full border-2 font-bold shrink-0 ${styles.index}`}
+              className={`flex items-center justify-center w-10 h-10 rounded-full md:border-2 border font-bold shrink-0 ${styles.index}`}
               style={{ borderColor: 'var(--primary)', color: 'var(--primary)' }}
             >
               {index + 1}

@@ -31,7 +31,9 @@ import {
   LoanValidationErrors,
   LoanOption,
   ConsultationInputData,
-  ConsultationValidationErrors
+  ConsultationValidationErrors,
+  BankerInputData,
+  BankerValidationErrors
 } from '@/src/lib/types';
 
 /**
@@ -230,6 +232,62 @@ export function validateConsultationInputs(
         name: sanitizeText(name),
         phone: sanitizeText(phone),
         message: message ? sanitizeText(message) : undefined,
+      },
+    };
+  }
+
+  return {
+    isValid: false,
+    errors,
+  };
+}
+
+/**
+ * Validates banker form inputs server-side without external dependencies.
+ */
+export function validateBankerInputs(
+  data: Partial<BankerInputData>
+): {
+  isValid: boolean;
+  errors: BankerValidationErrors;
+  sanitizedData?: BankerInputData;
+} {
+  const errors: BankerValidationErrors = {};
+
+  // 1. Validate Name (Required)
+  const name = (data.name || '').trim();
+  if (!name) {
+    errors.name = 'Name is required.';
+  } else if (name.length < 2) {
+    errors.name = 'Name must be at least 2 characters.';
+  } else if (name.length > 100) {
+    errors.name = 'Name must be under 100 characters.';
+  }
+
+  // 2. Validate Phone Number (Required)
+  const phone = (data.phone || '').trim();
+  if (!phone) {
+    errors.phone = 'Phone number is required.';
+  } else {
+    if (phone.length > 20) {
+      errors.phone = 'Phone number must be under 20 characters.';
+    } else {
+      const phoneRegex = /^\+?[0-9\s\-()]{7,20}$/;
+      if (!phoneRegex.test(phone)) {
+        errors.phone = 'Please enter a valid phone number.';
+      }
+    }
+  }
+
+  const isValid = Object.keys(errors).length === 0;
+
+  if (isValid) {
+    return {
+      isValid: true,
+      errors,
+      sanitizedData: {
+        name: sanitizeText(name),
+        phone: sanitizeText(phone),
       },
     };
   }

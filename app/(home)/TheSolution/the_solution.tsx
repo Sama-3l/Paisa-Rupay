@@ -27,7 +27,7 @@ function ApprovedCard() {
   )
 }
 
-function IssuesFound() {
+export function IssuesFound() {
   return (
     <div className={styles.card} style={{ background: 'var(--secondary-yellow)' }}>
       <div className='flex flex-col md:gap-3.5 gap-4.5'>

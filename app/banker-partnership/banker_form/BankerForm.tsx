@@ -2,31 +2,24 @@
 
 import React, { useActionState } from 'react';
 import { OrangeRadialInput } from '@/src/common/InputField/OrangeRadialInput';
-import { OrangeRadialDropdown } from '@/src/common/Dropdown/OrangeRadialDropdown';
-import { submitLoanForm } from '@/src/domain/actions';
-import { LoanFormState, LOAN_OPTIONS } from '@/src/lib/types';
+import { submitBankerForm } from '@/src/domain/actions';
+import { BankerFormState } from '@/src/lib/types';
 import styles from '../../contact-us/form/contact_form.module.css';
 
-const initialState: LoanFormState = {
+const initialState: BankerFormState = {
   success: false,
 };
 
-interface ApplyForLoanProps {
-  preselected?: string;
-  margin?: string;
-}
-
 /**
- * Client-side component managing the Loan Application form.
- * Uses React 19 useActionState to manage state (idle, pending, success, error)
- * without sacrificing accessibility and SEO structure of page.tsx.
+ * Client-side component managing the Banker Partnership registration form.
+ * Uses React 19 useActionState to manage form submission state, matching
+ * the user experience of contact and loan forms.
  */
-export default function ApplyForLoan({ preselected = '', margin='mt-10 mb-20' }: ApplyForLoanProps) {
-  // Hook into our Server Action to receive form state outputs (success, errors, pending)
-  const [state, formAction, isPending] = useActionState(submitLoanForm, initialState);
+export default function BankerForm() {
+  const [state, formAction, isPending] = useActionState(submitBankerForm, initialState);
 
   return (
-    <div className={`w-full ${margin}`}>
+    <div className="w-full">
       {state.success ? (
         /* SUCCESS STATE */
         /* Styled to match the solution cards green-gradient aesthetic */
@@ -41,7 +34,7 @@ export default function ApplyForLoan({ preselected = '', margin='mt-10 mb-20' }:
             <i className="ti ti-circle-check text-4xl text-white"></i>
           </div>
           <h3 className={styles.submitted_headline}>
-            Application Submitted!
+            Registration Submitted!
           </h3>
           <p className={styles.submitted_para}>
             {state.message}
@@ -52,10 +45,9 @@ export default function ApplyForLoan({ preselected = '', margin='mt-10 mb-20' }:
         <form action={formAction} className="flex flex-col w-full gap-6 mx-auto">
 
           {/* GLOBAL ERROR / RATE LIMIT STATE */}
-          {/* Styled in accordance with the project's rejection tag & card aesthetic */}
           {state.globalError && (
             <div
-              className="flex flex-col gap-2 p-4 border border-solid border-[#BA7517]/50 bg-[#FAEEDA] text-[#854F0B]"
+              className="flex flex-col gap-2 p-4 border border-solid border-(--secondary-red)/50 bg-(--primary-red) text-(--tertiary-red)"
               role="alert"
             >
               <div className="font-bold flex items-center gap-2">
@@ -97,24 +89,6 @@ export default function ApplyForLoan({ preselected = '', margin='mt-10 mb-20' }:
             {state.errors?.phone && (
               <span className="text-[#FF5C5C] text-xs font-(--font-fustat) mt-1 block">
                 {state.errors.phone}
-              </span>
-            )}
-          </div>
-
-          {/* LOAN TYPE DROPDOWN */}
-          <div>
-            <OrangeRadialDropdown
-              title="loan type"
-              name="loanType"
-              options={LOAN_OPTIONS}
-              required={true}
-              defaultValue={preselected}
-              placeholder="Select a loan type"
-              disabled={isPending}
-            />
-            {state.errors?.loanType && (
-              <span className="text-[#FF5C5C] text-xs font-(--font-fustat) mt-1 block">
-                {state.errors.loanType}
               </span>
             )}
           </div>

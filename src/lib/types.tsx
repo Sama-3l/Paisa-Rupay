@@ -79,3 +79,22 @@ export interface ConsultationFormState {
   globalError?: string;
 }
 
+// Banker Form Types
+export interface BankerInputData {
+  name: string;
+  phone: string;
+}
+
+export interface BankerValidationErrors {
+  name?: string;
+  phone?: string;
+}
+
+export interface BankerFormState {
+  success: boolean;
+  message?: string;
+  errors?: BankerValidationErrors;
+  globalError?: string;
+}
+
+
