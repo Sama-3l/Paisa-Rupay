@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import styles from './header.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
+import logoImg from '@/public/logo/paisa_rupay_logo_v2.svg';
 
 export default function Header() {
     const [visible, setVisible] = useState(true);
@@ -30,11 +32,11 @@ export default function Header() {
     }, []);
 
     const menuItems = [
-        { image: '/loan_grid_images/cash_coins_white_band_fixed_transparent.svg', label: 'Home', selected: false, href: "/" },
+        { image: '/loan_grid_images/cash_coins_white_band_fixed_transparent.png', label: 'Home', selected: false, href: "/" },
         { image: '/loan_grid_images/house_icon_transparent.png', label: 'Contact Us', selected: false, href: "/contact-us" },
-        { image: '/loan_grid_images/gold_loan_icon_transparent.svg', label: 'Apply For Loan', selected: false, href: "/apply-for-loan" },
+        { image: '/loan_grid_images/gold_loan_icon_transparent.png', label: 'Apply For Loan', selected: false, href: "/apply-for-loan" },
         { image: '/loan_grid_images/car_loan_icon_transparent.png', label: 'Free Consultation', selected: false, href: "/free-consultation" },
-        { image: '/loan_grid_images/property_loan_icon_transparent.svg', label: 'Banker Partnership Program', selected: false, href: "/banker-partnership" },
+        { image: '/loan_grid_images/property_loan_icon_transparent.png', label: 'Banker Partnership Program', selected: false, href: "/banker-partnership" },
     ]
 
     return (
@@ -52,8 +54,8 @@ export default function Header() {
                     ))}
                 </div>
                 <Link href="/">
-                <img
-                    src="/logo/paisa_rupay_logo_v2.svg"
+                <Image
+                    src={logoImg}
                     alt="Paisa Rupay logo"
                     className="md:h-10 h-8 w-auto object-contain cursor-pointer"
                 />

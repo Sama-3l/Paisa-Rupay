@@ -1,11 +1,13 @@
 import React from 'react'
 import styles from './image_section.module.css';
+import Image from 'next/image';
+import bankingImg from '@/public/section_images/banking.jpg';
 
 export default function ImageSection() {
   return (
     <div className='relative mt-20'>
-        <img
-            src="/section_images/banking.jpg"
+        <Image
+            src={bankingImg}
             alt="A modern banking hall illustrating the traditional bank visit experience"
             className="h-auto w-full object-cover"
         />
