@@ -69,3 +69,5 @@ export const OrangeRadialInput = forwardRef<HTMLInputElement | HTMLTextAreaEleme
     );
   }
 );
+
+OrangeRadialInput.displayName = "OrangeRadialInput";

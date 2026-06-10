@@ -35,8 +35,8 @@ function ProblemCard({ problem }: { problem: (typeof problems)[0] }) {
                 <div className={styles.problem_card_header}>
                     <span className={styles.problem_tag}>
                         <img
-                            src={`./problem_icons/${problem.icon}`}
-                            alt="Banking"
+                            src={`/problem_icons/${problem.icon}`}
+                            alt={problem.tag}
                             className="sm:h-3 h-2.5 w-auto object-cover"
                         />
                         <div className={styles.problem_tag_text}>

@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './the_solution.module.css'
 import SectionHeading from '@/src/common/section_heading/SectionHeading'
-import ProcessCard from './ProcessCard/process_card'
 import { ProcessList } from './ProcessCard/cards_process'
 
 function ApprovedCard() {
@@ -10,8 +9,8 @@ function ApprovedCard() {
       <div className='flex flex-col md:gap-3.5 gap-4.5'>
         <span className={styles.accepted_tag}>
           <img
-            src={`./lock_open.svg`}
-            alt="Banking"
+            src="/lock_open.svg"
+            alt="Unlocked padlock icon indicating loan approval"
             className="sm:h-3.5 h-2.5 w-auto object-cover"
           />
           <div className={styles.accepted_tag_text}>
@@ -33,8 +32,8 @@ export function IssuesFound() {
       <div className='flex flex-col md:gap-3.5 gap-4.5'>
         <span className={styles.issues_tag}>
           <img
-            src={`./issue_found.svg`}
-            alt="Banking"
+            src="/issue_found.svg"
+            alt="Alert icon indicating issues found and rectified"
             className="sm:h-3.5 h-2.5 w-auto object-cover"
           />
           <div className={styles.problem_tag_text}>
@@ -66,8 +65,8 @@ export default function TheSolution() {
         From finding the right lender to disbursement, we manage every step. One<br className='sm:flex hidden'/> person, one dashboard, no runaround.
       </div>
       <img
-        src="./the_solution/the_solution.svg"
-        alt="Banking"
+        src="/the_solution/the_solution.svg"
+        alt="Process flow mapping the Paisa Rupay journey"
         className="h-auto md:w-[50%] w-[90%] object-cover mx-auto md:my-20 my-10"
       />
       <ProcessList processes={processes} />
@@ -85,8 +84,8 @@ export default function TheSolution() {
         </div>
         <div className={styles.rejection_card}>
           <img
-            src={`./heart.svg`}
-            alt="Banking"
+            src="/heart.svg"
+            alt="Heart icon representing clear outcome policy"
             className="sm:h-6 h-auto sm:w-auto w-4 object-cover"
           />
           <div className='flex flex-col justify-between sm:gap-0 gap-10'>

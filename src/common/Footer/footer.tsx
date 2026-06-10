@@ -26,17 +26,17 @@ export default function Footer() {
         <div className={`flex-row justify-between ${styles.footer_links} md:px-12 px-4 pt-10 md:flex hidden`}>
             <div className='flex flex-col gap-4'>
                 {socials.map((social) => (
-                    <Link href={social.link}>{social.name}</Link>
+                    <Link key={social.name} href={social.link}>{social.name}</Link>
                 ))}
             </div>
             <div className='flex flex-col gap-4'>
                 {sitemap.map((site) => (
-                    <Link href={site.link}>{site.name}</Link>
+                    <Link key={site.name} href={site.link}>{site.name}</Link>
                 ))}
             </div>
             <div className='flex flex-col gap-4'>
                 {terms.map((term) => (
-                    <Link href={term.link}>{term.name}</Link>
+                    <Link key={term.name} href={term.link}>{term.name}</Link>
                 ))}
             </div>
         </div>
@@ -44,18 +44,18 @@ export default function Footer() {
             <div className='flex flex-col gap-16'>
                 <div className='flex flex-col gap-4'>
                     {sitemap.map((site) => (
-                        <Link href={site.link}>{site.name}</Link>
+                        <Link key={site.name} href={site.link}>{site.name}</Link>
                     ))}
                 </div>
                 <div className='flex flex-col gap-4'>
                     {socials.map((social) => (
-                        <Link href={social.link}>{social.name}</Link>
+                        <Link key={social.name} href={social.link}>{social.name}</Link>
                     ))}
                 </div>
             </div>
             <div className='flex flex-col gap-4 text-right'>
                 {terms.map((term) => (
-                    <Link href={term.link}>{term.name}</Link>
+                    <Link key={term.name} href={term.link}>{term.name}</Link>
                 ))}
             </div>
         </div>
@@ -64,8 +64,8 @@ export default function Footer() {
             <div>Find the lender perfect for you.</div>
         </div>
         <img
-            src="./logo/footer_logo.svg"
-            alt="Banking"
+            src="/logo/footer_logo.svg"
+            alt="Paisa Rupay - Find the lender perfect for you"
             className="h-auto w-full object-cover mx-auto sm:px-6 px-2 pb-2"
         />
     </div>

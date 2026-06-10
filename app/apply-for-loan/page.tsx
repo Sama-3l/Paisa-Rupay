@@ -8,8 +8,14 @@ import Guarantees from './guarantees/guarantees';
 
 // SEO Best Practices: Metadata
 export const metadata: Metadata = {
-  title: 'Apply For Loan | Paisa Rupay',
-  description: 'Apply for a loan with Paisa Rupay. Fill in the form and get connected with the right lender within 24 hours.',
+  title: 'Apply for a Loan',
+  description: 'Apply for a loan with Paisa Rupay. Fill in our simple 3-minute form and get connected with the right business or personal lender within 24 hours.',
+  openGraph: {
+    title: 'Apply for a Loan | Paisa Rupay',
+    description: 'Apply for a loan with Paisa Rupay. Fill in our simple 3-minute form and get connected with the right business or personal lender within 24 hours.',
+    url: 'https://paisarupay.com/apply-for-loan',
+    type: 'website',
+  },
 };
 
 export interface PageProps {

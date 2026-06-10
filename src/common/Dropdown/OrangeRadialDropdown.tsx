@@ -33,14 +33,13 @@ export function OrangeRadialDropdown({
 }: OrangeRadialDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(defaultValue);
+  const [prevDefaultValue, setPrevDefaultValue] = useState(defaultValue);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Update selected value if defaultValue changes (e.g. preselected loan type from URL)
-  useEffect(() => {
-    if (defaultValue) {
-      setSelectedValue(defaultValue);
-    }
-  }, [defaultValue]);
+  if (defaultValue !== prevDefaultValue) {
+    setPrevDefaultValue(defaultValue);
+    setSelectedValue(defaultValue);
+  }
 
   // Close dropdown on click outside
   useEffect(() => {

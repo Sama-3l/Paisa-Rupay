@@ -3,7 +3,18 @@ import React from 'react'
 import styles from './banker_partnership.module.css'
 import BankerForm from './banker_form/BankerForm'
 import StepsList from '../apply-for-loan/StepsList/steps_list'
-import { IssuesFound } from '../(home)/TheSolution/the_solution'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Banker Partnership Program",
+  description: "Partner with Paisa Rupay. Refer leads for business or personal loans, and earn transparent commissions upon successful disbursement.",
+  openGraph: {
+    title: "Banker Partnership Program | Paisa Rupay",
+    description: "Partner with Paisa Rupay. Refer leads for business or personal loans, and earn transparent commissions upon successful disbursement.",
+    url: "https://paisarupay.com/banker-partnership",
+    type: "website",
+  },
+};
 
 export default function BankerPartnership() {
     const bankers = [
@@ -22,7 +33,7 @@ export default function BankerPartnership() {
         </p>
         <div className='flex sm:flex-row flex-wrap sm:gap-x-4 gap-x-2 sm:gap-y-0 gap-y-2 sm:gap-6'>
             {bankers.map((e) => (
-                <div className={styles.tag}>
+                <div className={styles.tag} key={e}>
                     <div className='h-2 w-2 bg-(--primary) rounded-full' />
                     {e}
                 </div>
@@ -64,8 +75,8 @@ export default function BankerPartnership() {
         </div>
         <div className={styles.rejection_card}>
           <img
-            src={`./heart.svg`}
-            alt="Banking"
+            src="/heart.svg"
+            alt="Real results commission model representation"
             className="sm:h-6 h-3 w-auto object-cover"
           />
           <div className='flex flex-col justify-between sm:gap-0 gap-10'>

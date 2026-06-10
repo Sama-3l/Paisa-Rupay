@@ -3,12 +3,17 @@ import { Metadata } from 'next';
 import React from 'react';
 import styles from './free_consultation.module.css';
 import FreeConsultationForm from './form/FreeConsultationForm';
-import ProblemTable from './table/table';
 
 // SEO Best Practices: Metadata
 export const metadata: Metadata = {
-  title: 'Free Consultation | Paisa Rupay',
+  title: 'Free Consultation',
   description: 'Request a free 15-minute consultation with a Paisa Rupay advisor. Understand where you stand and find your best loan options with zero fees and zero commitment.',
+  openGraph: {
+    title: 'Free Consultation | Paisa Rupay',
+    description: 'Request a free 15-minute consultation with a Paisa Rupay advisor. Understand where you stand and find your best loan options with zero fees and zero commitment.',
+    url: 'https://paisarupay.com/free-consultation',
+    type: 'website',
+  },
 };
 
 export default function FreeConsultation() {

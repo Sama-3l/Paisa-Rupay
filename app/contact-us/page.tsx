@@ -6,8 +6,14 @@ import ContactForm from './form/ContactForm';
 
 // SEO Best Practices: Metadata
 export const metadata: Metadata = {
-    title: 'Contact Us | Paisa Rupay',
+    title: 'Contact Us',
     description: 'Reach out to Paisa Rupay. We are easier to reach than your bank. Drop us a message with any questions, concerns, or queries.',
+    openGraph: {
+        title: 'Contact Us | Paisa Rupay',
+        description: 'Reach out to Paisa Rupay. We are easier to reach than your bank. Drop us a message with any questions, concerns, or queries.',
+        url: 'https://paisarupay.com/contact-us',
+        type: 'website',
+    },
 };
 
 export default function ContactUs() {
@@ -15,8 +21,8 @@ export default function ContactUs() {
         <div className='w-full'>
             <div className='relative'>
                 <img
-                    src="./contact_us/Contact_Us.png"
-                    alt="Banking"
+                    src="/contact_us/Contact_Us.png"
+                    alt="Paisa Rupay customer service representatives assisting a client"
                     className="sm:h-[50vw] h-auto w-full object-cover object-[center-50%]"
                 />
 

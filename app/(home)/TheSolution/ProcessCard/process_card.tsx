@@ -5,8 +5,8 @@ export default function ProcessCard({cardBackground, headline, description, numb
   return (
     <div className='relative w-full h-[200px] md:h-[500px] bg-(--card) overflow-hidden border border-white/5'>
         <img
-            src={`./the_solution/${cardBackground}`}
-            alt="Banking"
+            src={`/the_solution/${cardBackground}`}
+            alt={`Step ${number} background illustration`}
             className="h-full w-auto object-cover md:object-fill ml-auto opacity-30 md:opacity-100 select-none pointer-events-none"
         />  
 
