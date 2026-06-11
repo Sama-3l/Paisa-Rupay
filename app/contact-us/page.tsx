@@ -4,7 +4,7 @@ import styles from './contact_us.module.css';
 import SectionHeading from '@/src/common/section_heading/SectionHeading';
 import ContactForm from './form/ContactForm';
 import Image from 'next/image';
-import contactHeroImg from '@/public/contact_us/Contact_Us.webp';
+import contactHeroImg from '@/public/contact_us/Contact_Us.png';
 
 // SEO Best Practices: Metadata
 export const metadata: Metadata = {

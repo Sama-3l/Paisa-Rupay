@@ -2,13 +2,13 @@ import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
 
-import cashCoinsIcon from '@/public/loan_grid_images/cash_coins_white_band_fixed_transparent.webp'
-import houseIcon from '@/public/loan_grid_images/house_icon_transparent.webp'
-import carIcon from '@/public/loan_grid_images/car_loan_icon_transparent.webp'
-import goldIcon from '@/public/loan_grid_images/gold_loan_icon_transparent.webp'
-import propertyIcon from '@/public/loan_grid_images/property_loan_icon_transparent.webp'
-import businessIcon from '@/public/loan_grid_images/business_loan_icon_transparent.webp'
-import otherIcon from '@/public/loan_grid_images/other_loans_icon_transparent.webp'
+import cashCoinsIcon from '@/public/loan_grid_images/cash_coins_white_band_fixed_transparent.png'
+import houseIcon from '@/public/loan_grid_images/house_icon_transparent.png'
+import carIcon from '@/public/loan_grid_images/car_loan_icon_transparent.png'
+import goldIcon from '@/public/loan_grid_images/gold_loan_icon_transparent.png'
+import propertyIcon from '@/public/loan_grid_images/property_loan_icon_transparent.png'
+import businessIcon from '@/public/loan_grid_images/business_loan_icon_transparent.png'
+import otherIcon from '@/public/loan_grid_images/other_loans_icon_transparent.png'
 
 const loans = [
   { image: cashCoinsIcon, label: 'Personal Loan', href: '/apply-for-loan?loan=personal' },
