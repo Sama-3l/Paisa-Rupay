@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './table.module.css'
+import Image from 'next/image'
 
 const problems = [
     {
@@ -34,7 +35,9 @@ function ProblemCard({ problem }: { problem: (typeof problems)[0] }) {
                 {/* Element 1: Header row */}
                 <div className={styles.problem_card_header}>
                     <span className={styles.problem_tag}>
-                        <img
+                        <Image
+                            height={100}
+                            width={100}
                             src={`/problem_icons/${problem.icon}`}
                             alt={problem.tag}
                             className="sm:h-3 h-2.5 w-auto object-cover"

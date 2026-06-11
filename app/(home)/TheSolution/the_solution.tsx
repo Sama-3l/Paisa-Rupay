@@ -2,13 +2,16 @@ import React from 'react'
 import styles from './the_solution.module.css'
 import SectionHeading from '@/src/common/section_heading/SectionHeading'
 import { ProcessList } from './ProcessCard/cards_process'
+import Image from 'next/image'
 
 function ApprovedCard() {
   return (
     <div className={styles.card}>
       <div className='flex flex-col md:gap-3.5 gap-4.5'>
         <span className={styles.accepted_tag}>
-          <img
+          <Image
+            height={100}
+            width={100} 
             src="/lock_open.svg"
             alt="Unlocked padlock icon indicating loan approval"
             className="sm:h-3.5 h-2.5 w-auto object-cover"
@@ -31,7 +34,9 @@ export function IssuesFound() {
     <div className={styles.card} style={{ background: 'var(--secondary-yellow)' }}>
       <div className='flex flex-col md:gap-3.5 gap-4.5'>
         <span className={styles.issues_tag}>
-          <img
+          <Image
+            height={100}
+            width={100}
             src="/issue_found.svg"
             alt="Alert icon indicating issues found and rectified"
             className="sm:h-3.5 h-2.5 w-auto object-cover"
@@ -64,7 +69,9 @@ export default function TheSolution() {
       <div className={styles.subheading}>
         From finding the right lender to disbursement, we manage every step. One<br className='sm:flex hidden'/> person, one dashboard, no runaround.
       </div>
-      <img
+      <Image
+        height={100}
+        width={100}
         src="/the_solution/the_solution.svg"
         alt="Process flow mapping the Paisa Rupay journey"
         className="h-auto md:w-[50%] w-[90%] object-cover mx-auto md:my-20 my-10"
@@ -83,7 +90,9 @@ export default function TheSolution() {
           <IssuesFound />
         </div>
         <div className={styles.rejection_card}>
-          <img
+          <Image
+            height={100}
+            width={100}
             src="/heart.svg"
             alt="Heart icon representing clear outcome policy"
             className="sm:h-6 h-auto sm:w-auto w-4 object-cover"

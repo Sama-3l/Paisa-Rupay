@@ -4,6 +4,7 @@ import styles from './banker_partnership.module.css'
 import BankerForm from './banker_form/BankerForm'
 import StepsList from '../apply-for-loan/StepsList/steps_list'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: "Banker Partnership Program",
@@ -74,7 +75,9 @@ export default function BankerPartnership() {
             </span>
         </div>
         <div className={styles.rejection_card}>
-          <img
+          <Image
+            height={100}
+            width={100}
             src="/heart.svg"
             alt="Real results commission model representation"
             className="sm:h-6 h-3 w-auto object-cover"

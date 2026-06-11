@@ -1,10 +1,13 @@
 import React from 'react'
 import styles from './process_card.module.css'
+import Image from 'next/image'
 
 export default function ProcessCard({cardBackground, headline, description, number} : {cardBackground : string, headline : React.ReactNode, description : string, number : string}) {
   return (
-    <div className='relative w-full h-[200px] md:h-[500px] bg-(--card) overflow-hidden border border-white/5'>
-        <img
+    <div className='relative w-full h-50 md:h-125 bg-(--card) overflow-hidden border border-white/5'>
+        <Image
+            height={100}
+            width={100}
             src={`/the_solution/${cardBackground}`}
             alt={`Step ${number} background illustration`}
             className="h-full w-auto object-cover md:object-fill ml-auto opacity-30 md:opacity-100 select-none pointer-events-none"

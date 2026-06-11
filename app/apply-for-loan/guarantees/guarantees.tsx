@@ -1,11 +1,12 @@
 import React from 'react'
 import styles from './guarantees.module.css';
+import Image from 'next/image';
 
 function Guarantee({ icon, information, alt }: { icon: string, information: string, alt: string }) {
     return (
         <div className={styles.guarantee}>
-            <div className='flex bg-(--secondary-green) sm:h-12 sm:w-12 md:h-10 md:w-10 h-6 w-6 items-center justify-center rounded-md flex-shrink-0'>
-                <img src={icon} alt={alt} className="sm:h-6 md:h-4 h-3 w-auto object-cover" />
+            <div className='flex bg-(--secondary-green) sm:h-12 sm:w-12 md:h-10 md:w-10 h-6 w-6 items-center justify-center rounded-md shrink-0'>
+                <Image height={100} width={100} src={icon} alt={alt} className="sm:h-6 md:h-4 h-3 w-auto object-cover" />
             </div>
             <div className={styles.text}>
                 {information}

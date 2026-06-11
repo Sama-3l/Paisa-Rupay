@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './footer.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 export default function Footer() {
@@ -64,7 +65,9 @@ export default function Footer() {
             <div>© 2026 Paisa Rupay</div>
             <div>Find the lender perfect for you.</div>
         </div>
-        <img
+        <Image
+            height={100}
+            width={100}
             src="/logo/footer_logo.svg"
             alt="Paisa Rupay - Find the lender perfect for you"
             className="h-auto w-full object-cover mx-auto sm:px-6 px-2 pb-2"
