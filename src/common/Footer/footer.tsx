@@ -17,7 +17,7 @@ export default function Footer() {
         {name: "Banker Partnership Program", link: "/banker-partnership"},
     ]
     const terms = [
-        {name: "Terms of use", link: "/legal/terms-of-use"},
+        {name: "Terms of Use", link: "/legal/terms-of-use"},
         {name: "Privacy Policy", link: "/legal/privacy-policy"},
         { name: "+91-77869-92638", link: "tel:+917786992638" },
         { name: "Email", link: "mailto:contact@paisarupay.com" },
