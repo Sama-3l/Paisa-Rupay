@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default function Footer() {
     const socials = [
-        {name: "Instagram", link: ""},
+        {name: "Instagram", link: "https://www.instagram.com/paisarupay/"},
         {name: "Twitter", link: ""},
         {name: "Linkedin", link: ""},
     ]
@@ -17,9 +17,10 @@ export default function Footer() {
         {name: "Banker Partnership Program", link: "/banker-partnership"},
     ]
     const terms = [
-        {name: "Terms and Policies", link: ""},
-        {name: "+91-77869-92638", link: ""},
-        {name: "Email", link: ""},
+        {name: "Terms of use", link: "/legal/terms-of-use"},
+        {name: "Privacy Policy", link: "/legal/privacy-policy"},
+        { name: "+91-77869-92638", link: "tel:+917786992638" },
+        { name: "Email", link: "mailto:contact@paisarupay.com" },
     ]
   return (
     <div className='flex flex-col gap-20'>
