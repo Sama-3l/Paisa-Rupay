@@ -17,3 +17,14 @@
     align-self: center;
     cursor: pointer;
 }
+
+.menu_trigger_btn {
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    font-weight: normal !important;
+    line-height: 1 !important;
+    color: inherit !important;
+}
