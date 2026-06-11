@@ -6,8 +6,8 @@ import Link from 'next/link';
 export default function Footer() {
     const socials = [
         {name: "Instagram", link: "https://www.instagram.com/paisarupay/"},
-        {name: "Twitter", link: ""},
-        {name: "Linkedin", link: ""},
+        // {name: "Twitter", link: ""},
+        // {name: "Linkedin", link: ""},
     ]
     const sitemap = [
         {name: "Home", link: "/"},
