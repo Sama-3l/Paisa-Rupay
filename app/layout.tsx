@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/src/common/Header/header";
 import Footer from "@/src/common/Footer/footer";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const literataItalic = localFont({
   src: '../fonts/Literata/Literata-Italic-VariableFont.ttf',
@@ -81,6 +82,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
         />
       </head>
+        <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID || ""} />
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
