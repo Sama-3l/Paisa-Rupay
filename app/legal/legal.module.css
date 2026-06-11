@@ -66,3 +66,38 @@
   border: none;
   margin-block: 32px;
 }
+
+@media (max-width : 640px){
+  .date_text{
+    margin-bottom: 40px;
+  }
+
+  .h2 {
+    font-family: var(--font-literata-regular);
+    font-size: var(--heading2);
+  }
+}
+
+@media (max-width: 1024px){
+  .li {
+    font-family: var(--font-fustat);
+    font-size: var(--paragraph);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    align-items: flex-start;
+  }
+
+
+  .li::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #FF6D28;
+    border-radius: 50%;
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+}
