@@ -5,6 +5,7 @@ import { OrangeRadialInput } from '@/src/common/InputField/OrangeRadialInput';
 import { submitBankerForm } from '@/src/domain/actions';
 import { BankerFormState } from '@/src/lib/types';
 import styles from '../../contact-us/form/contact_form.module.css';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const initialState: BankerFormState = {
   success: false,
@@ -42,7 +43,7 @@ export default function BankerForm() {
         </div>
       ) : (
         /* ACTIVE / IDLE / LOADING STATE */
-        <form action={formAction} className="flex flex-col w-full gap-6 mx-auto">
+        <form action={formAction} className="flex flex-col w-full gap-6 mx-auto" onFocus={() => sendGAEvent('event', 'form_start', { form_name: 'banker_partnership' })} onSubmit={() => sendGAEvent('event', 'form_submit', { form_name: 'banker_partnership' })}>
 
           {/* GLOBAL ERROR / RATE LIMIT STATE */}
           {state.globalError && (

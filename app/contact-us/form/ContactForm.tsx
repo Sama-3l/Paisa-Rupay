@@ -4,6 +4,7 @@ import React, { useActionState } from 'react';
 import { OrangeRadialInput } from '@/src/common/InputField/OrangeRadialInput';
 import { FormState, submitContactForm } from '@/src/domain/actions';
 import styles from './contact_form.module.css';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const initialState: FormState = {
   success: false,
@@ -42,7 +43,7 @@ export default function ContactForm() {
         </div>
       ) : (
         /* ACTIVE / IDLE / LOADING STATE */
-        <form action={formAction} className="flex flex-col sm:w-[60%] w-full sm:px-0 px-4 gap-6 mx-auto">
+        <form action={formAction} className="flex flex-col sm:w-[60%] w-full sm:px-0 px-4 gap-6 mx-auto" onFocus={() => sendGAEvent('event', 'form_start', { form_name: 'contact_us' })} onSubmit={() => sendGAEvent('event', 'form_submit', { form_name: 'contact_us' })}>
 
           {/* GLOBAL ERROR / RATE LIMIT STATE */}
           {/* Styled in accordance with the project's rejection tag & card aesthetic */}

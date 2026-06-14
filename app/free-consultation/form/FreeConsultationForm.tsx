@@ -5,6 +5,7 @@ import { OrangeRadialInput } from '@/src/common/InputField/OrangeRadialInput';
 import { submitConsultationForm } from '@/src/domain/actions';
 import { ConsultationFormState } from '@/src/lib/types';
 import styles from './free_consultation.module.css';
+import { sendGAEvent } from '@next/third-parties/google';
 
 const initialState: ConsultationFormState = {
   success: false,
@@ -36,7 +37,7 @@ export default function FreeConsultationForm() {
         </div>
       ) : (
         /* ACTIVE / IDLE / LOADING STATE */
-        <form action={formAction} className={`${styles.form_container} w-full sm:px-0 px-4 mx-auto`}>
+        <form action={formAction} className={`${styles.form_container} w-full sm:px-0 px-4 mx-auto`} onFocus={() => sendGAEvent('event', 'form_start', { form_name: 'free_consultation' })} onSubmit={() => sendGAEvent('event', 'form_submit', { form_name: 'free_consultation' })}>
 
           {/* GLOBAL ERROR / RATE LIMIT STATE */}
           {state.globalError && (

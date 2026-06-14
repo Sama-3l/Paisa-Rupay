@@ -6,6 +6,7 @@ import { OrangeRadialDropdown } from '@/src/common/Dropdown/OrangeRadialDropdown
 import { submitLoanForm } from '@/src/domain/actions';
 import { LoanFormState, LOAN_OPTIONS } from '@/src/lib/types';
 import styles from '../../contact-us/form/contact_form.module.css';
+import { sendGAEvent } from '@next/third-parties/google'
 
 const initialState: LoanFormState = {
   success: false,
@@ -49,7 +50,7 @@ export default function ApplyForLoan({ preselected = '', margin='mt-10 mb-20' }:
         </div>
       ) : (
         /* ACTIVE / IDLE / LOADING STATE */
-        <form action={formAction} className="flex flex-col w-full gap-6 mx-auto">
+        <form action={formAction} className="flex flex-col w-full gap-6 mx-auto " onFocus={() => sendGAEvent('event', 'form_start', { form_name: 'apply_form' })} onSubmit={() => sendGAEvent('event', 'form_submit', { form_name: 'apply_form' })}>
 
           {/* GLOBAL ERROR / RATE LIMIT STATE */}
           {/* Styled in accordance with the project's rejection tag & card aesthetic */}
