@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './footer.module.css';
 import Link from 'next/link';
 import Image from 'next/image';
+import CookiePreferencesButton from './CookiePreferencesButton';
 
 
 export default function Footer() {
@@ -40,6 +41,7 @@ export default function Footer() {
                 {terms.map((term) => (
                     <Link key={term.name} href={term.link}>{term.name}</Link>
                 ))}
+                <CookiePreferencesButton />
             </div>
         </div>
         <div className={`flex flex-row justify-between ${styles.footer_links} md:px-12 px-4 pt-10 md:hidden`}>
@@ -55,10 +57,11 @@ export default function Footer() {
                     ))}
                 </div>
             </div>
-            <div className='flex flex-col gap-4 text-right'>
+            <div className='flex flex-col gap-4 text-right items-end'>
                 {terms.map((term) => (
                     <Link key={term.name} href={term.link}>{term.name}</Link>
                 ))}
+                <CookiePreferencesButton />
             </div>
         </div>
         <div className={`flex flex-row justify-between ${styles.copyright} sm:px-12 px-4 pt-10`}>

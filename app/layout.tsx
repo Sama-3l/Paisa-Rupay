@@ -4,7 +4,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/src/common/Header/header";
 import Footer from "@/src/common/Footer/footer";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google';
+import CookieConsent from "@/src/common/CookieConsent/CookieConsent";
 
 const literataItalic = localFont({
   src: '../fonts/Literata/Literata-Italic-VariableFont.ttf',
@@ -81,12 +82,30 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'personalization_storage': 'denied',
+                'functionality_storage': 'denied',
+                'security_storage': 'granted'
+              });
+            `
+          }}
+        />
       </head>
         <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID || ""} />
       <body className="min-h-full flex flex-col">
         <Header />
         {children}
         <Footer />
+        <CookieConsent />
       </body>
     </html>
   );

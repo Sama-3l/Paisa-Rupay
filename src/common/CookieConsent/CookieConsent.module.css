@@ -1,0 +1,324 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  animation: fadeIn 300ms ease-out forwards;
+}
+
+.container {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  width: 90%;
+  max-width: 768px;
+  background: rgba(22, 19, 22, 0.85);
+  backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+  color: var(--text-color);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  transition: all 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  animation: slideUp 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.container.expanded {
+  max-width: 640px;
+}
+
+.bannerView, .customizeView {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-family: var(--font-fustat);
+  font-size: var(--heading5);
+  font-weight: 700;
+  color: var(--text-color);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.description {
+  font-family: var(--font-literata-regular);
+  font-size: var(--paragraph);
+  line-height: 1.6;
+  color: var(--placeholder);
+  margin: 0;
+}
+
+.policyLink {
+  color: var(--primary);
+  text-decoration: underline;
+  transition: color 200ms ease;
+}
+
+.policyLink:hover {
+  color: #ff854d;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.primaryButton {
+  font-family: var(--font-fustat);
+  font-size: var(--paragraph);
+  font-weight: 600;
+  background-color: var(--primary);
+  color: var(--background);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 109, 40, 0.3);
+  background-color: #ff854d;
+}
+
+.secondaryButton {
+  font-family: var(--font-fustat);
+  font-size: var(--paragraph);
+  font-weight: 500;
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.secondaryButton:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Customize View Styles */
+.customizeDesc {
+  font-family: var(--font-literata-regular);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--placeholder);
+  margin: 0 0 8px 0;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(69, 48, 39, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.categoryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.categoryInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.categoryName {
+  font-family: var(--font-fustat);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.categoryDesc {
+  font-family: var(--font-literata-regular);
+  font-size: 12px;
+  color: var(--placeholder);
+  line-height: 1.4;
+}
+
+/* Custom Toggle Switch */
+.toggleWrapper {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.hiddenCheckbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleLabel {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(255, 255, 255, 0.15);
+  transition: background-color 300ms ease;
+  border-radius: 34px;
+}
+
+.toggleLabel:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.hiddenCheckbox:checked + .toggleLabel {
+  background-color: var(--primary-green);
+}
+
+.hiddenCheckbox:checked + .toggleLabel:before {
+  transform: translateX(20px);
+}
+
+.disabledToggle {
+  background-color: rgba(255, 255, 255, 0.25);
+  cursor: not-allowed;
+}
+
+.disabledToggle:before {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Customize Actions */
+.customizeActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.backButton {
+  font-family: var(--font-fustat);
+  font-size: 14px;
+  background: none;
+  border: none;
+  color: var(--placeholder);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 200ms ease;
+}
+
+.backButton:hover {
+  color: var(--text-color);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.rightActions {
+  display: flex;
+  gap: 12px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    padding: 20px;
+    animation: slideUpMobile 500ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .container.expanded {
+    max-width: 100%;
+  }
+
+  .buttonGroup {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .buttonGroup button {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .rightActions {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .rightActions button {
+    width: 100%;
+  }
+
+  .customizeActions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .backButton {
+    padding-left: 0;
+  }
+
+  .categoryItem {
+    gap: 16px;
+  }
+
+  @keyframes slideUpMobile {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
