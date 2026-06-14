@@ -66,12 +66,9 @@ export default function CookieConsent() {
   }, []);
 
   const loadClarity = () => {
-    const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
-    if (!clarityId || clarityId === 'mock_clarity_id') {
-      return;
-    }
+    const clarityId = process.env.CLARITY_ID;
     if (typeof window !== 'undefined' && !window.clarity) {
-      window.clarity = window.clarity || function(...args: any[]) {
+      window.clarity = window.clarity || function (...args: any[]) {
         (window.clarity!.q = window.clarity!.q || []).push(args);
       };
       const script = document.createElement('script');
@@ -144,8 +141,8 @@ export default function CookieConsent() {
             <div className={styles.textSection}>
               <h3 id="cookie-title" className={styles.title}>Cookie Consent</h3>
               <p className={styles.description}>
-                We use cookies to improve your browsing experience, analyze site traffic, and personalize content. 
-                By clicking &quot;Accept All&quot;, you consent to our use of cookies. 
+                We use cookies to improve your browsing experience, analyze site traffic, and personalize content.
+                By clicking &quot;Accept All&quot;, you consent to our use of cookies.
                 You can manage your preferences or read our{' '}
                 <Link href="/legal/privacy-policy" className={styles.policyLink} onClick={() => setIsOpen(false)}>
                   Privacy Policy
