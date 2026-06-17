@@ -35,14 +35,14 @@ const fustat = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Paisa Rupay - Business & Personal Loans Made Simple",
+    default: "Paisa Rupay | Business & Personal Loans Made Simple",
     template: "%s | Paisa Rupay",
   },
   description: "Paisa Rupay helps you find the right business and personal lenders quickly, easily, and transparently. No endless bank visits, no spam, just clear matching and guidance.",
   metadataBase: new URL('https://paisarupay.com'),
   keywords: ["business loan", "personal loan", "loan advisor", "financial consultant", "Paisa Rupay", "lender matching"],
   openGraph: {
-    title: "Paisa Rupay - Business & Personal Loans Made Simple",
+    title: "Paisa Rupay | Business & Personal Loans Made Simple",
     description: "Find your ideal lender without the runaround. Transparent fees, dedicated advisor support, and fast processing.",
     url: "https://paisarupay.com",
     siteName: "Paisa Rupay",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Paisa Rupay - Business & Personal Loans Made Simple",
+    title: "Paisa Rupay | Business & Personal Loans Made Simple",
     description: "Find your ideal lender without the runaround. Transparent fees, dedicated advisor support, and fast processing.",
   },
   icons: {
