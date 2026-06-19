@@ -19,7 +19,7 @@ async function sendResponse(email : string){
     await resend.emails.send({
       from: FROM,
       to: [email],
-      replyTo: 'contact@athenaventura.com',
+      replyTo: 'contact@paisarupay.com',
       subject: `Thank you for contacting us.`,
       html: `
         <p>Thank you for reaching out to us</p>
