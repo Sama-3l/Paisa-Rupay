@@ -16,7 +16,7 @@
     color: var(--text-color);
     text-align: start;
     gap: 12px;
-    padding: 10px 20px;
+    padding: 10px 16px;
     border-radius: 24px;
     border-width: 0.5px;
     border-color: color-mix(in srgb, var(--placeholder) 30%, transparent);
