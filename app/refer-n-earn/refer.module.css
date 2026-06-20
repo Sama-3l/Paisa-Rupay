@@ -1,0 +1,95 @@
+.para{
+    font-family: var(--font-fustat);
+    font-size: var(--paragraph);
+    letter-spacing: 0%;
+    color: var(--placeholder);
+    text-align: start;
+}
+
+.tag{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: var(--font-fustat);
+    font-size: var(--caption);
+    letter-spacing: -2.5%;
+    color: var(--text-color);
+    text-align: start;
+    gap: 12px;
+    padding: 10px 16px;
+    border-radius: 24px;
+    border-width: 0.5px;
+    border-color: color-mix(in srgb, var(--placeholder) 30%, transparent);
+}
+
+.caption {
+    font-family: var(--font-fustat);
+    color: var(--primary);
+    letter-spacing: 5%;
+    font-size: var(--caption);
+    font-weight: 700;
+}   
+
+.rejection_card{
+    display: flex;
+    flex-direction: row;
+    width: 90vw; 
+    height: 20vw;
+    justify-content: space-between;
+    padding: 24px;
+    margin-top: 80px;
+    z-index: 10;
+    gap: 24px;
+    background: var(--primary-red);
+}
+
+.rejection_headline {
+    font-family: var(--font-fustat);
+    font-weight: 700;
+    letter-spacing: -2.5%;
+    font-size: var(--heading4);
+    line-height: var(--heading4);
+    color: var(--tertiary-red);
+}
+
+.rejection_description {
+    font-family: var(--font-fustat);
+    font-weight: 400;
+    letter-spacing: 0%;
+    max-width: 75%;
+    font-size: var(--button);
+    color: color-mix(in srgb, var(--tertiary-red) 70%, transparent);
+}
+
+@media (max-width: 1024px){
+    .rejection_card{
+        height: 30vw;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 748px){
+    .rejection_headline {
+        font-size: var(--heading3);
+        line-height: var(--heading3);
+    }
+
+    .tag{
+        gap: 10px;
+        padding: 8px 16px;
+        border-radius: 24px;
+    }
+}
+
+@media (max-width: 640px) {
+    .rejection_card{
+        width: 100%;
+        height: auto;
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .rejection_description {
+        max-width: 100%;
+    }
+}
