@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+        <h1 className="sr-only">Paisa Rupay — Business &amp; Personal Loans Made Simple</h1>
         <OurLoans />
         <Consultation />
         <ImageSection />

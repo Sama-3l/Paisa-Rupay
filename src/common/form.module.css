@@ -1,0 +1,21 @@
+/**
+ * Shared form success/error state styles.
+ * Used by all form pages: contact, loan, consultation, banker.
+ */
+
+.submitted_headline {
+    font-family: var(--font-fustat);
+    color: var(--text-color);
+    font-size: var(--heading2);
+    font-weight: 600;
+    letter-spacing: -5%;
+    margin-bottom: 12px;
+}
+
+.submitted_para {
+    font-family: var(--font-fustat);
+    color: var(--placeholder);
+    font-size: var(--paragraph);
+    font-weight: 400;
+    margin-bottom: 12px;
+}

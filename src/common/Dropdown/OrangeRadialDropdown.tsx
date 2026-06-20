@@ -33,13 +33,12 @@ export function OrangeRadialDropdown({
 }: OrangeRadialDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(defaultValue);
-  const [prevDefaultValue, setPrevDefaultValue] = useState(defaultValue);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  if (defaultValue !== prevDefaultValue) {
-    setPrevDefaultValue(defaultValue);
+  // Sync selectedValue whenever the parent changes defaultValue
+  useEffect(() => {
     setSelectedValue(defaultValue);
-  }
+  }, [defaultValue]);
 
   // Close dropdown on click outside
   useEffect(() => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styles from './CookieConsent.module.css';
 import Link from 'next/link';
 
@@ -27,6 +27,43 @@ export default function CookieConsent() {
   const [isCustomizing, setIsCustomizing] = useState(false);
   const [analyticsChecked, setAnalyticsChecked] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const loadClarity = useCallback(() => {
+    const clarityId = process.env.CLARITY_ID;
+    if (typeof window !== 'undefined' && !window.clarity) {
+      window.clarity = window.clarity || function (...args: any[]) {
+        (window.clarity!.q = window.clarity!.q || []).push(args);
+      };
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.clarity.ms/tag/${clarityId}`;
+      const firstScript = document.getElementsByTagName('script')[0];
+      if (firstScript && firstScript.parentNode) {
+        firstScript.parentNode.insertBefore(script, firstScript);
+      } else {
+        document.head.appendChild(script);
+      }
+    }
+  }, []);
+
+  const applyPreferences = useCallback((analyticsAllowed: boolean) => {
+    if (typeof window === 'undefined') return;
+
+    // Update Google Consent Mode v2
+    if (window.gtag) {
+      window.gtag('consent', 'update', {
+        'analytics_storage': analyticsAllowed ? 'granted' : 'denied',
+        'ad_storage': analyticsAllowed ? 'granted' : 'denied',
+        'ad_user_data': analyticsAllowed ? 'granted' : 'denied',
+        'ad_personalization': analyticsAllowed ? 'granted' : 'denied',
+      });
+    }
+
+    // Load Clarity if allowed
+    if (analyticsAllowed) {
+      loadClarity();
+    }
+  }, [loadClarity]);
 
   useEffect(() => {
     setMounted(true);
@@ -63,44 +100,7 @@ export default function CookieConsent() {
 
     window.addEventListener('open-cookie-settings', handleOpenSettings);
     return () => window.removeEventListener('open-cookie-settings', handleOpenSettings);
-  }, []);
-
-  const loadClarity = () => {
-    const clarityId = process.env.CLARITY_ID;
-    if (typeof window !== 'undefined' && !window.clarity) {
-      window.clarity = window.clarity || function (...args: any[]) {
-        (window.clarity!.q = window.clarity!.q || []).push(args);
-      };
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://www.clarity.ms/tag/${clarityId}`;
-      const firstScript = document.getElementsByTagName('script')[0];
-      if (firstScript && firstScript.parentNode) {
-        firstScript.parentNode.insertBefore(script, firstScript);
-      } else {
-        document.head.appendChild(script);
-      }
-    }
-  };
-
-  const applyPreferences = (analyticsAllowed: boolean) => {
-    if (typeof window === 'undefined') return;
-
-    // Update Google Consent Mode v2
-    if (window.gtag) {
-      window.gtag('consent', 'update', {
-        'analytics_storage': analyticsAllowed ? 'granted' : 'denied',
-        'ad_storage': analyticsAllowed ? 'granted' : 'denied',
-        'ad_user_data': analyticsAllowed ? 'granted' : 'denied',
-        'ad_personalization': analyticsAllowed ? 'granted' : 'denied',
-      });
-    }
-
-    // Load Clarity if allowed
-    if (analyticsAllowed) {
-      loadClarity();
-    }
-  };
+  }, [applyPreferences]);
 
   const savePreferences = (analyticsAllowed: boolean, choiceType: 'all' | 'rejected' | 'custom') => {
     const prefs: CookiePreferences = {
@@ -135,7 +135,7 @@ export default function CookieConsent() {
   return (
     <>
       <div className={styles.overlay} onClick={() => setIsOpen(false)} />
-      <div className={`${styles.container} ${isCustomizing ? styles.expanded : ''}`} role="dialog" aria-labelledby="cookie-title">
+      <div className={`${styles.container} ${isCustomizing ? styles.expanded : ''}`} role="dialog" aria-labelledby="cookie-title" aria-modal="true">
         {!isCustomizing ? (
           <div className={styles.bannerView}>
             <div className={styles.textSection}>
@@ -191,7 +191,7 @@ export default function CookieConsent() {
 
               <div className={styles.categoryItem}>
                 <div className={styles.categoryInfo}>
-                  <span className={styles.categoryName}>Analytics & Performance</span>
+                  <span className={styles.categoryName}>Analytics &amp; Performance</span>
                   <span className={styles.categoryDesc}>
                     Uses Google Analytics and Microsoft Clarity to collect anonymous usage metrics to improve website performance.
                   </span>

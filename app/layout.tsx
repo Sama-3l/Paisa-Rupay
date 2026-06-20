@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/src/common/Header/header";
@@ -76,7 +75,6 @@ export default function RootLayout({
       className={`${literataItalic.variable} ${literataRegular.variable} ${fustat.variable} h-full antialiased`}
     >
       <head>
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         <link
           rel="stylesheet"
@@ -100,8 +98,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID || ""} />
       <body className="min-h-full flex flex-col">
+        <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID || ""} />
         <Header />
         {children}
         <Footer />

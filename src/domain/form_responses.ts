@@ -40,8 +40,9 @@ async function sheetUpdate(formData : ApplyForLoanFormData | ContactUsFormData |
     redirect: 'follow'
   });
 
-  console.log('Status:', response.status)
-  console.log('Body:', await response.json())
+  console.log('Sheet webhook status:', response.status);
+  const bodyText = await response.text().catch(() => '(unreadable)');
+  console.log('Sheet webhook body:', bodyText);
 }
 
 export async function sendLoanApplicationMail(data: ApplyForLoanFormData) {
