@@ -69,8 +69,8 @@
 
 @media (max-width: 748px){
     .rejection_headline {
-        font-size: var(--heading3);
-        line-height: var(--heading3);
+        font-size: var(--heading2);
+        line-height: var(--heading2);
     }
 
     .tag{
