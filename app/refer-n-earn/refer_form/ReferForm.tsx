@@ -2,18 +2,18 @@
 
 import React, { useActionState } from 'react';
 import { OrangeRadialInput } from '@/src/common/InputField/OrangeRadialInput';
-import { submitBankerForm } from '@/src/domain/actions';
-import { BankerFormState } from '@/src/lib/types';
+import { submitReferForm } from '@/src/domain/actions';
+import { ReferFormState } from '@/src/lib/types';
 import styles from '@/src/common/form.module.css';
 import Spinner from '@/src/common/Spinner/Spinner';
 import { sendGAEvent } from '@next/third-parties/google';
 
-const initialState: BankerFormState = {
+const initialState: ReferFormState = {
   success: false,
 };
 
-export default function BankerForm() {
-  const [state, formAction, isPending] = useActionState(submitBankerForm, initialState);
+export default function ReferForm() {
+  const [state, formAction, isPending] = useActionState(submitReferForm, initialState);
 
   return (
     <div className="w-full">

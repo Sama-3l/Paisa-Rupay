@@ -27,7 +27,7 @@
     color: var(--primary);
     letter-spacing: 5%;
     font-size: var(--caption);
-    font-weight: 700;
+    font-weight: 600;
 }   
 
 .rejection_card{
@@ -49,16 +49,15 @@
     letter-spacing: -2.5%;
     font-size: var(--heading4);
     line-height: var(--heading4);
-    color: var(--tertiary-red);
+    color: var(--text-color);
 }
 
 .rejection_description {
     font-family: var(--font-fustat);
     font-weight: 400;
     letter-spacing: 0%;
-    max-width: 75%;
     font-size: var(--button);
-    color: color-mix(in srgb, var(--tertiary-red) 70%, transparent);
+    color: color-mix(in srgb, var(--primary-red) 100%, transparent);
 }
 
 @media (max-width: 1024px){

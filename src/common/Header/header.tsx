@@ -56,6 +56,7 @@ export default function Header() {
         { label: 'Contact Us', href: "/contact-us" },
         { label: 'Apply For Loan', href: "/apply-for-loan" },
         { label: 'Free Consultation', href: "/free-consultation" },
+        { label: 'Refer & Earn', href: "/refer-n-earn" },
         { label: 'Banker Partnership Program', href: "/banker-partnership" },
     ];
 

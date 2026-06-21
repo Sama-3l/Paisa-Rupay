@@ -97,6 +97,13 @@ export interface BankerFormState {
   globalError?: string;
 }
 
+export interface ReferFormState {
+  success: boolean;
+  message?: string;
+  errors?: BankerValidationErrors;
+  globalError?: string;
+}
+
 export interface ApplyForLoanFormData {
   name: string;
   type: 'apply for loan';

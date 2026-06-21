@@ -319,3 +319,77 @@ export async function submitBankerForm(
     };
   }
 }
+
+export async function submitReferForm(
+  prevState: BankerFormState,
+  formData: FormData
+): Promise<BankerFormState> {
+  return await {
+    success: true,
+      message: 'Thank you! Your registration has been received. Our executive will reach out to you within 24 hours.',
+  };
+  // try {
+  //   // 1. Retrieve Client IP for Rate Limiting
+  //   const headersList = await headers(); // Next.js async request API
+  //   const xForwardedFor = headersList.get('x-forwarded-for');
+  //   const xRealIp = headersList.get('x-real-ip');
+
+  //   // Resolve client IP (fall back to localhost/unknown if proxy headers are absent)
+  //   let clientIp = '127.0.0.1';
+  //   if (xForwardedFor) {
+  //     clientIp = xForwardedFor.split(',')[0].trim();
+  //   } else if (xRealIp) {
+  //     clientIp = xRealIp.trim();
+  //   }
+
+  //   // 2. Perform Rate Limiting check
+  //   if (isRateLimited(clientIp)) {
+  //     return {
+  //       success: false,
+  //       globalError: 'Too many submissions. Please wait 5 minutes and try again.',
+  //     };
+  //   }
+
+  //   // 3. Extract Form Fields
+  //   const name = formData.get('name') as string | null;
+  //   const phone = formData.get('phone') as string | null;
+
+  //   // 4. Validate & Sanitize Inputs
+  //   const validation = validateBankerInputs({
+  //     name: name || undefined,
+  //     phone: phone || undefined,
+  //   });
+
+  //   if (!validation.isValid) {
+  //     return {
+  //       success: false,
+  //       errors: validation.errors,
+  //       globalError: 'Please fix the errors below.',
+  //     };
+  //   }
+
+  //   const formInfo = { ...validation.sanitizedData!, type: 'banker partnership' as const };
+
+  //   // 5. Send email directly — no internal HTTP round-trip
+  //   await sendBankerPartnershipMail(formInfo);
+
+  //   console.log('[Banker Registration Submission Success]', {
+  //     ip: clientIp,
+  //     timestamp: new Date().toISOString(),
+  //     data: formInfo,
+  //   });
+
+  //   // Return only the exact success status and message required by the client UI
+  //   return {
+  //     success: true,
+  //     message: 'Thank you! Your registration has been received. Our executive will reach out to you within 24 hours.',
+  //   };
+
+  // } catch (error) {
+  //   console.error('[Banker Submission Server Error]', error);
+  //   return {
+  //     success: false,
+  //     globalError: 'An unexpected server error occurred. Please try again later.',
+  //   };
+  // }
+}
