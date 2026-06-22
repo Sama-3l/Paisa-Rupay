@@ -31,6 +31,17 @@
   --copyright: 12px;
 }
 
+::-moz-selection {
+  background-color: #FF6D28; /* Highlight background color */
+  color: #ffffff;            /* Highlighted text color */
+}
+
+/* For Chrome, Safari, and Edge */
+::selection {
+  background-color: #FF6D28; /* Highlight background color */
+  color: #ffffff;            /* Highlighted text color */
+}
+
 @media (max-width: 1024px) {
   :root {
     --heading1: 40px;

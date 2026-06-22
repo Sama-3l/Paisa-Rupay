@@ -129,6 +129,35 @@
     color: var(--text-color);
 }
 
+.wrapper {
+  --selection-bg: var(--text-color);
+  --selection-text: var(--primary);
+}
+
+/* Everything inside TheSolution */
+.wrapper ::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+.wrapper ::-moz-selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* Override for cards */
+.card ::selection,
+.rejection_card ::selection {
+  background: var(--primary);
+  color: var(--text-color);
+}
+
+.card ::-moz-selection,
+.rejection_card ::-moz-selection {
+  background: var(--primary);
+  color: var(--text-color);
+}
+
 
 @media (max-width: 1024px){
 
