@@ -90,7 +90,8 @@
     color: var(--placeholder);
     line-height:1.55;
     display:flex;
-    gap:8px;
+    gap: 16px;
+    max-width: 90%;
     align-items:flex-start;
 }
 
@@ -108,6 +109,12 @@
     .rejection_card{
         height: 30vw;
         padding: 16px;
+    }
+
+    .fine_print_list li::before {
+        height: 6px;
+        width: 6px;
+        margin-top: 6px;
     }
 }
 
@@ -147,26 +154,9 @@
 
     .fine_print_list{
         margin-top: 24px;
-        gap: 16px;
     }
-
+    
     .fine_print_list li{
-        font-family: var(--font-fustat);
-        font-size: var(--paragraph);
-        color: var(--placeholder);
-        line-height:1.55;
-        display:flex;
-        gap: 12px;
-        align-items:flex-start;
-    }
-
-    .fine_print_list li::before {
-        content: '';
-        height: 6px;
-        width: 6px;
-        background: color-mix(in srgb, var(--primary) 80%, transparent);
-        border-radius: 50%;
-        margin-top: 6px;
-        flex-shrink: 0;
+        max-width: 100%;
     }
 }
