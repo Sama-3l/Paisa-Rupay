@@ -85,8 +85,16 @@ export default function BankerPartnership() {
                 <p className={`w-full ${styles.para} py-4 mb-2`}>
                     Your code is tied to your phone number. Anyone who uses it and gets their loan approved earns you a reward.
                 </p>
-            </div>
-            
+            </div>            
+        </div>
+        <div className={styles.good_to_know}>
+            <div className={styles.good_to_know_headline}>Good to know</div>
+            <ul className={styles.fine_print_list}>
+                <li>Rewards are processed after the referred loan is fully disbursed and not on application or approval alone. This means both you and your referee can trust that the reward is real and confirmed, not a promise that falls through later.</li>
+                <li>There is no limit on how many people you can refer. The more that get approved, the more you earn. Share your code freely since every successful loan counts towards your rewards.</li>
+                <li>The fee cashback goes directly to the person who used your code, they do not need to do anything extra. It gets applied automatically once their loan is disbursed, no claims, no follow-ups needed. We'll reach out to you regarding the same</li>
+                <li>Your referral code is tied to your phone number and is unique to you. Keep it safe and only share it with people you are referring so, do not post it publicly.</li>
+            </ul>
         </div>
     </div>
   )

@@ -12,7 +12,7 @@ const PLACEHOLDER_CODE = 'PR1230';
 const REFERRAL_LINK = `paisarupay.com/apply?ref=${PLACEHOLDER_CODE}`;
 
 const initialState: ReferFormState = {
-  success: true,
+  success: false,
 };
 
 export default function ReferForm() {
