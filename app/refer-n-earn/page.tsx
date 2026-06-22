@@ -7,12 +7,12 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 
 export const metadata: Metadata = {
-  title: "Banker Partnership Program",
-  description: "Partner with Paisa Rupay. Refer leads for business or personal loans, and earn transparent commissions upon successful disbursement.",
+  title: "Refer & Earn",
+  description: "Share your referral code with anyone who needs a loan. When their loan gets approved, you earn a reward — and they get a cashback on their fees.",
   openGraph: {
-    title: "Banker Partnership Program | Paisa Rupay",
-    description: "Partner with Paisa Rupay. Refer leads for business or personal loans, and earn transparent commissions upon successful disbursement.",
-    url: "https://paisarupay.com/banker-partnership",
+    title: "Refer & Earn | Paisa Rupay",
+    description: "Share your referral code with anyone who needs a loan. When their loan gets approved, you earn a reward — and they get a cashback on their fees.",
+    url: "https://paisarupay.com/refer-n-earn",
     type: "website",
   },
 };
