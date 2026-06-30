@@ -1,7 +1,7 @@
 import SectionHeading from '@/src/common/section_heading/SectionHeading'
 import React from 'react'
 import styles from './refer.module.css'
-import BankerForm from './refer_form/ReferForm'
+import ReferForm from './refer_form/ReferForm'
 import StepsList from '../apply-for-loan/StepsList/steps_list'
 import type { Metadata } from 'next'
 import Image from 'next/image'
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BankerPartnership() {
+export default function ReferEarn() {
   return (
     <div className='sm:pt-20 pt-12 sm:w-[90%] w-full sm:px-0 px-4 self-center sm:pb-40 pb-20'>
         {/* SEO Best Practices: Heading Structure */}
@@ -28,7 +28,7 @@ export default function BankerPartnership() {
         </p>
         <div className='flex flex-col w-full gap-4 sm:hidden sm:mt-0 my-20'>
             <div className={styles.caption}>GET YOUR REFERRAL CODE</div>
-            <BankerForm />
+            <ReferForm />
             <p className={`w-full ${styles.para} py-4 mb-2`}>
                 Your code is tied to your phone number. Anyone who uses it and gets their loan approved earns you a reward.
             </p>
@@ -81,7 +81,7 @@ export default function BankerPartnership() {
             </span>
             <div className='sm:flex hidden sm:flex-col w-full gap-4'>
                 <div className={styles.caption}>GET YOUR REFERRAL CODE</div>
-                <BankerForm />
+                <ReferForm />
                 <p className={`w-full ${styles.para} py-4 mb-2`}>
                     Your code is tied to your phone number. Anyone who uses it and gets their loan approved earns you a reward.
                 </p>

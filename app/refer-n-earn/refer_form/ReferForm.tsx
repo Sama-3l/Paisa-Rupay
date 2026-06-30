@@ -8,44 +8,51 @@ import styles from './refer_form.module.css';
 import Spinner from '@/src/common/Spinner/Spinner';
 import { sendGAEvent } from '@next/third-parties/google';
 
-const PLACEHOLDER_CODE = 'PR1230';
-const REFERRAL_LINK = `paisarupay.com/apply?ref=${PLACEHOLDER_CODE}`;
-
 const initialState: ReferFormState = {
   success: false,
 };
 
+/**
+ * Client-side component managing the Refer & Earn code generation form.
+ * Uses React 19 useActionState to manage state (idle, pending, success, error).
+ *
+ * On success, displays the real 8-char referral code returned by the server
+ * (state.code) along with copy controls.
+ */
 export default function ReferForm() {
   const [state, formAction, isPending] = useActionState(submitReferForm, initialState);
-  const [copied, setCopied] = useState(false);
   const [codeCopied, setCodeCopied] = useState(false);
 
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(`https://${REFERRAL_LINK}`);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      /* silent fallback */
-    }
-  };
-
   const handleCopyCode = async () => {
+    if (!state.code) return;
     try {
-      await navigator.clipboard.writeText(PLACEHOLDER_CODE);
+      await navigator.clipboard.writeText(state.code);
       setCodeCopied(true);
       setTimeout(() => setCodeCopied(false), 2000);
     } catch {
-      /* silent fallback */
+      /* silent fallback — clipboard API may be unavailable in insecure contexts */
     }
   };
 
-  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`Use my referral code ${PLACEHOLDER_CODE} to apply for a loan on PaisaRupay! https://${REFERRAL_LINK}`)}`;
-  const emailUrl = `mailto:?subject=${encodeURIComponent('Apply for a loan with my referral code')}&body=${encodeURIComponent(`Hi,\n\nUse my referral code ${PLACEHOLDER_CODE} to apply for a loan on PaisaRupay!\n\nhttps://${REFERRAL_LINK}`)}`;
+  // Build WhatsApp and email share URLs only after a code is available
+  const whatsappUrl = state.code
+    ? `https://wa.me/?text=${encodeURIComponent(
+        `Use my referral code ${state.code} to apply for a loan on PaisaRupay! Visit: https://paisarupay.com/apply-for-loan`
+      )}`
+    : '#';
+
+  const emailUrl = state.code
+    ? `mailto:?subject=${encodeURIComponent(
+        'Apply for a loan with my referral code'
+      )}&body=${encodeURIComponent(
+        `Hi,\n\nUse my referral code ${state.code} to apply for a loan on PaisaRupay!\n\nhttps://paisarupay.com/apply-for-loan`
+      )}`
+    : '#';
 
   return (
     <div className="w-full">
-      {state.success ? (
+      {state.success && state.code ? (
+        /* SUCCESS STATE — displays the real generated code */
         <div id="codeState" className="flex flex-col gap-6 w-full">
 
           {/* Intro line */}
@@ -55,15 +62,14 @@ export default function ReferForm() {
           >
             Here is your referral code,{' '}
             <strong className={styles.code_span} id="userName">
-              {state.message ?? 'PR1230'}
+              {state.message ?? ''}
             </strong>
             . Share it with anyone who needs a loan.
           </p>
 
           {/* Code card */}
-          <div
-            className={`flex flex-col gap-4 p-5 ${styles.orange_radial}`}
-          >
+          <div className={`flex flex-col gap-4 p-5 ${styles.orange_radial}`}>
+
             {/* Code row */}
             <div className="flex flex-col gap-1">
               <span
@@ -72,11 +78,8 @@ export default function ReferForm() {
               >
                 Your code
               </span>
-              <span
-                id="codeValue"
-                className={styles.code}
-              >
-                {PLACEHOLDER_CODE}
+              <span id="codeValue" className={styles.code}>
+                {state.code}
               </span>
             </div>
 
@@ -86,42 +89,27 @@ export default function ReferForm() {
               style={{ background: 'color-mix(in srgb, var(--primary) 20%, transparent)' }}
             />
 
-            {/* Link row */}
-            <div className="flex flex-col gap-2">
-              <span
-                className="font-(--font-fustat) tracking-[5%] uppercase"
-                style={{ fontSize: 'var(--caption)', fontWeight: '500', color: 'var(--primary)' }}
-              >
-                Your referral link
-              </span>
-              <div className="flex flex-row items-stretch gap-0 border" style={{borderColor: 'color-mix(in srgb, var(--placeholder) 20%, transparent)',}}>
-                <div
-                  id="codeLink"
-                  className="flex-1 text-(--text-color) px-3 py-3  truncate"
-                  style={{
-                    fontFamily: 'var(--font-fustat)',
-                    fontSize: 'var(--caption)',
-                    background: 'var(--background)',
-                  }}
-                >
-                  {REFERRAL_LINK}
-                </div>
-                <button
-                  id="copyBtn"
-                  onClick={handleCopyLink}
-                  className="shrink-0 transition-all active:scale-95"
-                  style={{
-                    background: copied ? 'var(--secondary-green)' : 'var(--primary)',
-                    color: copied ? 'var(--primary-green)' : 'var(--background)',
-                    paddingInline: '16px',
-                    fontSize: 'var(--caption)',
-                    fontWeight: 600,
-                  }}
-                >
-                  {copied ? 'Copied!' : 'Copy link'}
-                </button>
-              </div>
-            </div>
+            {/* Copy code button */}
+            <button
+              onClick={handleCopyCode}
+              className="flex items-center gap-2 self-start transition-all active:scale-95"
+              style={{
+                background: codeCopied
+                  ? 'radial-gradient(circle at center, color-mix(in srgb, var(--primary-green) 20%, transparent) 0%, color-mix(in srgb, var(--primary-green) 80%, transparent) 300%)'
+                  : 'radial-gradient(circle at center, color-mix(in srgb, var(--primary) 20%, transparent) 0%, color-mix(in srgb, var(--primary) 80%, transparent) 300%)',
+                color: codeCopied ? 'var(--primary-green)' : 'var(--text-color)',
+                border: '0.5px solid color-mix(in srgb, var(--placeholder) 25%, transparent)',
+                paddingInline: '16px',
+                paddingBlock: '10px',
+                fontSize: 'var(--button)',
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" />
+                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+              </svg>
+              {codeCopied ? 'Copied!' : 'Copy code'}
+            </button>
           </div>
 
           {/* Share via */}
@@ -133,6 +121,7 @@ export default function ReferForm() {
               Share via
             </span>
             <div className="flex flex-row flex-wrap gap-3">
+
               {/* WhatsApp */}
               <a
                 href={whatsappUrl}
@@ -142,15 +131,12 @@ export default function ReferForm() {
                 style={{
                   background: 'radial-gradient(circle at center, color-mix(in srgb, var(--primary) 20%, transparent) 0%, color-mix(in srgb, var(--primary) 80%, transparent) 300%)',
                   border: '0.5px solid color-mix(in srgb, var(--placeholder) 25%, transparent)',
-                  outline: 'none',
-                  padding: '0.75rem 1rem',
-                  boxSizing: 'border-box',
-                  color: 'inherit',
                   paddingInline: '16px',
                   paddingBlock: '10px',
                   fontSize: 'var(--button)',
                   fontFamily: 'var(--font-fustat)',
                   fontWeight: 600,
+                  color: 'inherit',
                 }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="#25D366">
@@ -159,26 +145,6 @@ export default function ReferForm() {
                 </svg>
                 WhatsApp
               </a>
-
-              {/* Copy code */}
-              <button
-                onClick={handleCopyCode}
-                className="flex items-center gap-2 transition-all active:scale-95"
-                style={{
-                  background: codeCopied ? 'radial-gradient(circle at center, color-mix(in srgb, var(--primary-green) 20%, transparent) 0%, color-mix(in srgb, var(--primary-green) 80%, transparent) 300%)' : 'radial-gradient(circle at center, color-mix(in srgb, var(--primary) 20%, transparent) 0%, color-mix(in srgb, var(--primary) 80%, transparent) 300%)',
-                  color: codeCopied ? 'var(--primary-green)' : 'var(--text-color)',
-                  border: '0.5px solid color-mix(in srgb, var(--placeholder) 25%, transparent)',
-                  paddingInline: '16px',
-                  paddingBlock: '10px',
-                  fontSize: 'var(--button)',
-                }}
-              >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" />
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
-                </svg>
-                {codeCopied ? 'Copied!' : 'Copy code'}
-              </button>
 
               {/* Email */}
               <a
@@ -205,7 +171,13 @@ export default function ReferForm() {
           </div>
         </div>
       ) : (
-        <form action={formAction} className="flex flex-col w-full gap-6 mx-auto" onFocus={() => sendGAEvent('event', 'form_start', { form_name: 'banker_partnership' })} onSubmit={() => sendGAEvent('event', 'form_submit', { form_name: 'banker_partnership' })}>
+        /* ACTIVE / IDLE / LOADING STATE */
+        <form
+          action={formAction}
+          className="flex flex-col w-full gap-6 mx-auto"
+          onFocus={() => sendGAEvent('event', 'form_start', { form_name: 'refer_earn' })}
+          onSubmit={() => sendGAEvent('event', 'form_submit', { form_name: 'refer_earn' })}
+        >
 
           {/* GLOBAL ERROR / RATE LIMIT STATE */}
           {state.globalError && (
@@ -256,18 +228,19 @@ export default function ReferForm() {
             )}
           </div>
 
+          {/* EMAIL FIELD (optional) — RF-3 fix: correct error binding; RF-4 fix: type="email" */}
           <div>
             <OrangeRadialInput
-              title="email"
+              title="email (optional)"
               name="email"
-              type="text"
+              type="email"
               placeholder="example@gmail.com"
               required={false}
               disabled={isPending}
             />
-            {state.errors?.name && (
+            {state.errors?.email && (
               <span className="text-[#FF5C5C] text-xs font-(--font-fustat) mt-1 block">
-                {state.errors.name}
+                {state.errors.email}
               </span>
             )}
           </div>
@@ -277,15 +250,15 @@ export default function ReferForm() {
             type="submit"
             disabled={isPending}
             className="self-start flex items-center justify-center gap-2 hover:opacity-90 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            style={{ paddingInline: "32px" }}
+            style={{ paddingInline: '32px' }}
           >
             {isPending ? (
               <>
                 <Spinner />
-                Submitting...
+                Generating...
               </>
             ) : (
-              "Generate my code"
+              'Generate my code'
             )}
           </button>
         </form>

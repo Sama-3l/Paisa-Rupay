@@ -15,6 +15,7 @@ const initialState: LoanFormState = {
 
 interface ApplyForLoanProps {
   preselected?: string;
+  preselectedRef?: string; // Populated from ?ref= URL param when user clicks a referral link
   margin?: string;
 }
 
@@ -23,7 +24,7 @@ interface ApplyForLoanProps {
  * Uses React 19 useActionState to manage state (idle, pending, success, error)
  * without sacrificing accessibility and SEO structure of page.tsx.
  */
-export default function ApplyForLoan({ preselected = '', margin='mt-10 mb-20' }: ApplyForLoanProps) {
+export default function ApplyForLoan({ preselected = '', preselectedRef = '', margin = 'mt-10 mb-20' }: ApplyForLoanProps) {
   // Hook into our Server Action to receive form state outputs (success, errors, pending)
   const [state, formAction, isPending] = useActionState(submitLoanForm, initialState);
 
@@ -119,6 +120,21 @@ export default function ApplyForLoan({ preselected = '', margin='mt-10 mb-20' }:
                 {state.errors.loanType}
               </span>
             )}
+          </div>
+
+          {/* REFERRAL CODE FIELD (optional) */}
+          <div>
+            <OrangeRadialInput
+              title="referral code (optional)"
+              name="referralCode"
+              type="text"
+              placeholder="Enter code if you have one"
+              required={false}
+              maxLength={8}
+              defaultValue={preselectedRef}
+              disabled={isPending}
+            />
+            {/* No error shown for referral code — invalid codes are silently ignored */}
           </div>
 
           {/* SUBMIT BUTTON WITH SPINNER */}

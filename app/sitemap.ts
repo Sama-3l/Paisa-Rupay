@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/legal/refer-n-earn`,
+      url: `${baseUrl}/refer-n-earn`,
       lastModified: new Date('2026-06-22'),
       changeFrequency: 'monthly',
       priority: 0.6,
@@ -38,6 +38,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/contact-us`,
       lastModified: new Date('2026-06-22'),
       changeFrequency: 'monthly',
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/legal/privacy-policy`,
+      lastModified: new Date('2026-06-11'),
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/legal/terms-of-use`,
+      lastModified: new Date('2026-06-11'),
+      changeFrequency: 'yearly',
       priority: 0.3,
     },
   ]
