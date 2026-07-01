@@ -61,9 +61,13 @@ async function sheetUpdate(
       redirect: 'follow',
     });
     const bodyText = await response.text().catch(() => '(unreadable)');
-    console.log('[Sheet] Status:', response.status, '| Body:', bodyText);
+    if (!response.ok) {
+      console.error(`[Sheet] Webhook returned ${response.status} — check WEBSITE_CONTACT_US_SHEET_LINK in env. Body:`, bodyText.slice(0, 200));
+    } else {
+      console.log('[Sheet] Success:', response.status, '|', bodyText.slice(0, 100));
+    }
   } catch (error) {
-    console.error('[Sheet] Webhook failed:', error);
+    console.error('[Sheet] Webhook failed (network error):', error);
     // Do NOT rethrow — sheet failure must not block the user
   }
 }
