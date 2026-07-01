@@ -44,6 +44,7 @@ export interface LoanInputData {
   name: string;
   phone: string;
   loanType: string;
+  referralCode?: string; // Optional — attached when user provides one
 }
 
 export interface LoanValidationErrors {
@@ -97,11 +98,41 @@ export interface BankerFormState {
   globalError?: string;
 }
 
+// Refer Form Types (RF-6 fix: dedicated errors with email field)
+export interface ReferInputData {
+  name: string;
+  phone: string;
+  email?: string;
+}
+
+export interface ReferValidationErrors {
+  name?: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface ReferFormState {
+  success: boolean;
+  message?: string;
+  code?: string;          // The generated 8-char referral code — shown in success UI
+  errors?: ReferValidationErrors;
+  globalError?: string;
+}
+
+// ---------------------------------------------------------------------------
+// Form data shapes sent to email / sheet / database
+// ---------------------------------------------------------------------------
+
 export interface ApplyForLoanFormData {
   name: string;
   type: 'apply for loan';
   phone: string;
   loanType: string;
+  // Referral fields (all optional — present only when a valid code was used)
+  referralCode?: string;
+  referrerName?: string;
+  referrerPhone?: string;
+  referrerEmail?: string;
 }
 
 export interface ContactUsFormData {
@@ -123,4 +154,12 @@ export interface FreeConsultationFormData {
   type: 'free consultation';
   phone: string;
   message: string;
+}
+
+export interface ReferralFormData {
+  name: string;
+  type: 'refer and earn';
+  phone: string;
+  email?: string;
+  code: string;
 }

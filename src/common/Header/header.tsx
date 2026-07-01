@@ -56,6 +56,7 @@ export default function Header() {
         { label: 'Contact Us', href: "/contact-us" },
         { label: 'Apply For Loan', href: "/apply-for-loan" },
         { label: 'Free Consultation', href: "/free-consultation" },
+        { label: 'Refer & Earn', href: "/refer-n-earn" },
         { label: 'Banker Partnership Program', href: "/banker-partnership" },
     ];
 
@@ -75,7 +76,7 @@ export default function Header() {
                     {/* Animated menu/close button */}
                     <button
                         onClick={() => setDrawerOpen(o => !o)}
-                        className={`md:hidden visible self-center text-white ${styles.menu_trigger_btn}`}
+                        className={`lg:hidden visible self-center text-white ${styles.menu_trigger_btn}`}
                         style={{ fontSize: '24px', width: '28px', height: '28px', position: 'relative' }}
                         aria-label={drawerOpen ? "Close navigation menu" : "Open navigation menu"}
                     >
@@ -102,7 +103,7 @@ export default function Header() {
                     </button>
 
                     {/* Desktop nav */}
-                    <div className='flex-row gap-8 align-middle md:flex hidden'>
+                    <div className='flex-row gap-8 align-middle lg:flex hidden'>
                         {menuItems.map((menu) => {
                             const isSelected = pathname === menu.href;
                             return (

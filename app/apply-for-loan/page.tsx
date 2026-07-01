@@ -19,12 +19,13 @@ export const metadata: Metadata = {
 };
 
 export interface PageProps {
-  searchParams: Promise<{ loan?: string }>;
+  searchParams: Promise<{ loan?: string; ref?: string }>;
 }
 
 export default async function LoanApplication({ searchParams }: PageProps) {
   const resolvedParams = await searchParams;
-  const preselected = resolvedParams.loan ?? "";
+  const preselected = resolvedParams.loan ?? '';
+  const preselectedRef = resolvedParams.ref ?? '';
 
   return (
     <div className='sm:pt-20 pt-12 sm:w-[90%] w-full sm:px-0 px-4 self-center sm:pb-40 pb-20'>
@@ -34,7 +35,7 @@ export default async function LoanApplication({ searchParams }: PageProps) {
       <p className={`w-full ${styles.para} py-4`}>
         Fill this in and your advisor will call you with further details within 24 hours.
       </p>
-      <ApplyForLoan preselected={preselected} />
+      <ApplyForLoan preselected={preselected} preselectedRef={preselectedRef} />
       <SectionHeading caption="WHAT HAPPENS NEXT" heading={<>Here is what the <br />next 24 hours look like.</>} />
       <div className='flex md:flex-row flex-col justify-between'>
         <StepsList />

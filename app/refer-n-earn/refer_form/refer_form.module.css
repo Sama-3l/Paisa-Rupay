@@ -1,0 +1,28 @@
+.code_span{
+    font-family: var(--font-literata-regular);
+    font-weight: 700;
+    font-size: var(--paragraph);
+    color: var(--text-color);
+    letter-spacing: 10%;
+}
+
+.orange_radial {
+  border-radius: 0px;
+  border-style: solid;
+  border-width: 0.5px;
+  border-color: rgba(var(--radial-rgb, 255, 109, 40), 0.5);
+  background: radial-gradient(circle at center, color-mix(in srgb, var(--primary) 5%, transparent) 0%, color-mix(in srgb, var(--primary) 80%, transparent) 700%);
+  outline: none;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  color: inherit;
+}
+
+.code{
+    font-family: var(--font-fustat);
+    font-weight: 700;
+    font-size: var(--heading2);
+    color: var(--text-color);
+    letter-spacing: 20%;
+}

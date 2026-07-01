@@ -1,12 +1,57 @@
 'use server';
 
 import { headers } from 'next/headers';
-import { validateContactInputs, validateLoanInputs, validateConsultationInputs, validateBankerInputs, isRateLimited } from './security';
-import { sendContactUsMail, sendLoanApplicationMail, sendFreeConsultationMail, sendBankerPartnershipMail } from './form_responses';
+import {
+  validateContactInputs,
+  validateLoanInputs,
+  validateConsultationInputs,
+  validateBankerInputs,
+  validateReferInputs,
+  isRateLimited,
+} from './security';
+import {
+  sendContactUsMail,
+  sendLoanApplicationMail,
+  sendFreeConsultationMail,
+  sendBankerPartnershipMail,
+  sendReferralCodeEmail,
+  sendReferralUsedEmail,
+} from './form_responses';
+import {
+  generateReferralCode,
+  upsertReferralCode,
+  getReferralByCode,
+  isCodeRateLimited,
+  incrementCodeUsage,
+} from './referral';
 
-import { ContactFormState, LoanFormState, ConsultationFormState, LOAN_OPTIONS, BankerFormState } from '@/src/lib/types';
+import {
+  ContactFormState,
+  LoanFormState,
+  ConsultationFormState,
+  LOAN_OPTIONS,
+  BankerFormState,
+  ReferFormState,
+} from '@/src/lib/types';
 
 export type FormState = ContactFormState;
+
+// ---------------------------------------------------------------------------
+// Shared IP resolution helper
+// ---------------------------------------------------------------------------
+
+async function getClientIp(): Promise<string> {
+  const headersList = await headers();
+  const xForwardedFor = headersList.get('x-forwarded-for');
+  const xRealIp = headersList.get('x-real-ip');
+  if (xForwardedFor) return xForwardedFor.split(',')[0].trim();
+  if (xRealIp) return xRealIp.trim();
+  return '127.0.0.1';
+}
+
+// ---------------------------------------------------------------------------
+// 1. Contact Form
+// ---------------------------------------------------------------------------
 
 /**
  * Server Action to submit the contact form securely.
@@ -18,20 +63,8 @@ export async function submitContactForm(
   formData: FormData
 ): Promise<FormState> {
   try {
-    // 1. Retrieve Client IP for Rate Limiting
-    const headersList = await headers(); // Next.js 16 asynchronous request API
-    const xForwardedFor = headersList.get('x-forwarded-for');
-    const xRealIp = headersList.get('x-real-ip');
-    
-    // Resolve client IP (fall back to localhost/unknown if proxy headers are absent)
-    let clientIp = '127.0.0.1';
-    if (xForwardedFor) {
-      clientIp = xForwardedFor.split(',')[0].trim();
-    } else if (xRealIp) {
-      clientIp = xRealIp.trim();
-    }
+    const clientIp = await getClientIp();
 
-    // 2. Perform Rate Limiting check
     if (isRateLimited(clientIp)) {
       return {
         success: false,
@@ -39,13 +72,11 @@ export async function submitContactForm(
       };
     }
 
-    // 3. Extract Form Fields
     const email = formData.get('email') as string | null;
     const name = formData.get('name') as string | null;
     const phone = formData.get('phone') as string | null;
     const message = formData.get('message') as string | null;
 
-    // 4. Validate & Sanitize Inputs
     const validation = validateContactInputs({
       email: email || undefined,
       name: name || undefined,
@@ -63,24 +94,16 @@ export async function submitContactForm(
 
     const formInfo = { ...validation.sanitizedData!, type: 'contact us' as const };
 
-    // 5. Send email directly — no internal HTTP round-trip
     await sendContactUsMail(formInfo);
 
-    console.log('[Form Submission Success]', {
-      ip: clientIp,
-      timestamp: new Date().toISOString(),
-      data: formInfo,
-    });
+    console.log('[ContactForm] Success', { ip: clientIp, ts: new Date().toISOString() });
 
-    // Return only the exact success status and message required by the client UI
-    // (avoiding leaking database schemas, raw models, or secret settings)
     return {
       success: true,
       message: 'Thank you! We have received your query and will get back to you within the same day.',
     };
-
   } catch (error) {
-    console.error('[Form Submission Server Error]', error);
+    console.error('[ContactForm] Server error', error);
     return {
       success: false,
       globalError: 'An unexpected server error occurred. Please try again later.',
@@ -88,28 +111,21 @@ export async function submitContactForm(
   }
 }
 
+// ---------------------------------------------------------------------------
+// 2. Loan Application Form
+// ---------------------------------------------------------------------------
+
 /**
  * Server Action to submit the loan application form securely.
+ * Handles optional referral code: validates, fetches referrer, notifies, tracks.
  */
 export async function submitLoanForm(
   prevState: LoanFormState,
   formData: FormData
 ): Promise<LoanFormState> {
   try {
-    // 1. Retrieve Client IP for Rate Limiting
-    const headersList = await headers(); // Next.js async request API
-    const xForwardedFor = headersList.get('x-forwarded-for');
-    const xRealIp = headersList.get('x-real-ip');
+    const clientIp = await getClientIp();
 
-    // Resolve client IP (fall back to localhost/unknown if proxy headers are absent)
-    let clientIp = '127.0.0.1';
-    if (xForwardedFor) {
-      clientIp = xForwardedFor.split(',')[0].trim();
-    } else if (xRealIp) {
-      clientIp = xRealIp.trim();
-    }
-
-    // 2. Perform Rate Limiting check
     if (isRateLimited(clientIp)) {
       return {
         success: false,
@@ -117,12 +133,11 @@ export async function submitLoanForm(
       };
     }
 
-    // 3. Extract Form Fields
     const name = formData.get('name') as string | null;
     const phone = formData.get('phone') as string | null;
     const loanType = formData.get('loanType') as string | null;
+    const rawReferralCode = formData.get('referralCode') as string | null;
 
-    // 4. Validate & Sanitize Inputs
     const validation = validateLoanInputs(
       {
         name: name || undefined,
@@ -140,31 +155,69 @@ export async function submitLoanForm(
       };
     }
 
-    const formInfo = { ...validation.sanitizedData!, type: 'apply for loan' as const };
+    // --- Referral Code Processing ---
+    const referralCode = rawReferralCode?.trim().toUpperCase() || null;
+    let referrerName: string | undefined;
+    let referrerPhone: string | undefined;
+    let referrerEmail: string | undefined;
 
-    // 5. Send email directly — no internal HTTP round-trip
+    if (referralCode) {
+      // Check if this code is being spammed (Option A: accept loan, drop referral)
+      if (isCodeRateLimited(referralCode)) {
+        console.warn('[LoanForm] Referral code rate-limited — proceeding without attribution:', referralCode);
+      } else {
+        const referrer = await getReferralByCode(referralCode);
+        if (referrer) {
+          referrerName = referrer.name;
+          referrerPhone = referrer.phone;
+          referrerEmail = referrer.email || undefined;
+
+          // Fire-and-forget: update usage counter + notify referrer
+          incrementCodeUsage(referralCode);
+
+          if (referrerEmail) {
+            sendReferralUsedEmail(
+              referrerEmail,
+              referrerName!,
+              referralCode,
+              validation.sanitizedData!.name
+            );
+          }
+        } else {
+          console.info('[LoanForm] Referral code not found — proceeding without attribution:', referralCode);
+        }
+      }
+    }
+
+    const formInfo = {
+      ...validation.sanitizedData!,
+      type: 'apply for loan' as const,
+      referralCode: referrerName ? referralCode! : undefined,
+      referrerName,
+      referrerPhone,
+      referrerEmail,
+    };
+
     await sendLoanApplicationMail(formInfo);
 
-    console.log('[Loan Application Submission Success]', {
-      ip: clientIp,
-      timestamp: new Date().toISOString(),
-      data: formInfo,
-    });
+    console.log('[LoanForm] Success', { ip: clientIp, ts: new Date().toISOString(), referralCode });
 
-    // Return only the exact success status and message required by the client UI
     return {
       success: true,
       message: 'Thank you! Your application has been received. Our loan advisor will call you within 24 hours.',
     };
-
   } catch (error) {
-    console.error('[Loan Submission Server Error]', error);
+    console.error('[LoanForm] Server error', error);
     return {
       success: false,
       globalError: 'An unexpected server error occurred. Please try again later.',
     };
   }
 }
+
+// ---------------------------------------------------------------------------
+// 3. Free Consultation Form
+// ---------------------------------------------------------------------------
 
 /**
  * Server Action to submit the free consultation request securely.
@@ -174,20 +227,8 @@ export async function submitConsultationForm(
   formData: FormData
 ): Promise<ConsultationFormState> {
   try {
-    // 1. Retrieve Client IP for Rate Limiting
-    const headersList = await headers(); // Next.js async request API
-    const xForwardedFor = headersList.get('x-forwarded-for');
-    const xRealIp = headersList.get('x-real-ip');
+    const clientIp = await getClientIp();
 
-    // Resolve client IP (fall back to localhost/unknown if proxy headers are absent)
-    let clientIp = '127.0.0.1';
-    if (xForwardedFor) {
-      clientIp = xForwardedFor.split(',')[0].trim();
-    } else if (xRealIp) {
-      clientIp = xRealIp.trim();
-    }
-
-    // 2. Perform Rate Limiting check
     if (isRateLimited(clientIp)) {
       return {
         success: false,
@@ -195,19 +236,15 @@ export async function submitConsultationForm(
       };
     }
 
-    // 3. Extract Form Fields
     const name = formData.get('name') as string | null;
     const phone = formData.get('phone') as string | null;
     const message = formData.get('message') as string | null;
 
-    // 4. Validate & Sanitize Inputs
-    const validation = validateConsultationInputs(
-      {
-        name: name || undefined,
-        phone: phone || undefined,
-        message: message || undefined,
-      }
-    );
+    const validation = validateConsultationInputs({
+      name: name || undefined,
+      phone: phone || undefined,
+      message: message || undefined,
+    });
 
     if (!validation.isValid) {
       return {
@@ -223,29 +260,26 @@ export async function submitConsultationForm(
       message: validation.sanitizedData!.message ?? '',
     };
 
-    // 5. Send email directly — no internal HTTP round-trip
     await sendFreeConsultationMail(formInfo);
 
-    console.log('[Free Consultation Request Submission Success]', {
-      ip: clientIp,
-      timestamp: new Date().toISOString(),
-      data: formInfo,
-    });
+    console.log('[ConsultationForm] Success', { ip: clientIp, ts: new Date().toISOString() });
 
-    // Return only the exact success status and message required by the client UI
     return {
       success: true,
       message: 'Thank you! Your free consultation request has been received. Our expert advisor will call you within 24 hours.',
     };
-
   } catch (error) {
-    console.error('[Consultation Submission Server Error]', error);
+    console.error('[ConsultationForm] Server error', error);
     return {
       success: false,
       globalError: 'An unexpected server error occurred. Please try again later.',
     };
   }
 }
+
+// ---------------------------------------------------------------------------
+// 4. Banker Partnership Form
+// ---------------------------------------------------------------------------
 
 /**
  * Server Action to submit the banker registration form securely.
@@ -255,20 +289,8 @@ export async function submitBankerForm(
   formData: FormData
 ): Promise<BankerFormState> {
   try {
-    // 1. Retrieve Client IP for Rate Limiting
-    const headersList = await headers(); // Next.js async request API
-    const xForwardedFor = headersList.get('x-forwarded-for');
-    const xRealIp = headersList.get('x-real-ip');
+    const clientIp = await getClientIp();
 
-    // Resolve client IP (fall back to localhost/unknown if proxy headers are absent)
-    let clientIp = '127.0.0.1';
-    if (xForwardedFor) {
-      clientIp = xForwardedFor.split(',')[0].trim();
-    } else if (xRealIp) {
-      clientIp = xRealIp.trim();
-    }
-
-    // 2. Perform Rate Limiting check
     if (isRateLimited(clientIp)) {
       return {
         success: false,
@@ -276,11 +298,9 @@ export async function submitBankerForm(
       };
     }
 
-    // 3. Extract Form Fields
     const name = formData.get('name') as string | null;
     const phone = formData.get('phone') as string | null;
 
-    // 4. Validate & Sanitize Inputs
     const validation = validateBankerInputs({
       name: name || undefined,
       phone: phone || undefined,
@@ -296,23 +316,93 @@ export async function submitBankerForm(
 
     const formInfo = { ...validation.sanitizedData!, type: 'banker partnership' as const };
 
-    // 5. Send email directly — no internal HTTP round-trip
     await sendBankerPartnershipMail(formInfo);
 
-    console.log('[Banker Registration Submission Success]', {
-      ip: clientIp,
-      timestamp: new Date().toISOString(),
-      data: formInfo,
-    });
+    console.log('[BankerForm] Success', { ip: clientIp, ts: new Date().toISOString() });
 
-    // Return only the exact success status and message required by the client UI
     return {
       success: true,
       message: 'Thank you! Your registration has been received. Our executive will reach out to you within 24 hours.',
     };
-
   } catch (error) {
-    console.error('[Banker Submission Server Error]', error);
+    console.error('[BankerForm] Server error', error);
+    return {
+      success: false,
+      globalError: 'An unexpected server error occurred. Please try again later.',
+    };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 5. Refer & Earn Form
+// ---------------------------------------------------------------------------
+
+/**
+ * Server Action to generate a referral code for the Refer & Earn feature.
+ * Validates inputs, generates a deterministic HMAC-based 8-char code,
+ * stores it in Supabase, optionally sends it to the referrer's email.
+ */
+export async function submitReferForm(
+  prevState: ReferFormState,
+  formData: FormData
+): Promise<ReferFormState> {
+  try {
+    const clientIp = await getClientIp();
+
+    if (isRateLimited(clientIp)) {
+      return {
+        success: false,
+        globalError: 'Too many submissions. Please wait 5 minutes and try again.',
+      };
+    }
+
+    const name = formData.get('name') as string | null;
+    const phone = formData.get('phone') as string | null;
+    const email = formData.get('email') as string | null;
+
+    const validation = validateReferInputs({
+      name: name || undefined,
+      phone: phone || undefined,
+      email: email || undefined,
+    });
+
+    if (!validation.isValid) {
+      return {
+        success: false,
+        errors: validation.errors,
+        globalError: 'Please fix the errors below.',
+      };
+    }
+
+    const { name: sanitizedName, phone: sanitizedPhone, email: sanitizedEmail } =
+      validation.sanitizedData!;
+
+    // Generate deterministic 8-char code (same inputs → same code always)
+    const code = generateReferralCode(sanitizedName, sanitizedPhone, sanitizedEmail);
+
+    // Upsert in Supabase (idempotent — safe to call multiple times for same code)
+    await upsertReferralCode(code, sanitizedName, sanitizedPhone, sanitizedEmail);
+
+    // Send code to referrer's email (non-blocking — fire and forget)
+    if (sanitizedEmail) {
+      sendReferralCodeEmail({
+        name: sanitizedName,
+        phone: sanitizedPhone,
+        email: sanitizedEmail,
+        code,
+        type: 'refer and earn',
+      });
+    }
+
+    console.log('[ReferForm] Code generated', { ip: clientIp, ts: new Date().toISOString(), code });
+
+    return {
+      success: true,
+      code,
+      message: sanitizedName,
+    };
+  } catch (error) {
+    console.error('[ReferForm] Server error', error);
     return {
       success: false,
       globalError: 'An unexpected server error occurred. Please try again later.',

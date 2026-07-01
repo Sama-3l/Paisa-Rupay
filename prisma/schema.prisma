@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")   // Pooled (pgbouncer) — used at runtime
+  directUrl = env("DIRECT_URL")     // Direct — used for migrations only
+}
+
+// ---------------------------------------------------------------------------
+// 1. Referral Codes
+// ---------------------------------------------------------------------------
+model ReferralCode {
+  id           String   @id @default(uuid())
+  code         String   @unique @db.VarChar(8)
+  name         String   @db.VarChar(100)
+  phone        String   @db.VarChar(20)
+  email        String?  @db.VarChar(100)
+  usageCount   Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  loanApplications LoanApplication[]
+
+  @@index([code])
+}
+
+// ---------------------------------------------------------------------------
+// 2. Loan Applications
+// ---------------------------------------------------------------------------
+model LoanApplication {
+  id            String   @id @default(uuid())
+  name          String   @db.VarChar(100)
+  phone         String   @db.VarChar(20)
+  loanType      String   @db.VarChar(50)
+  referralCode  String?  @db.VarChar(8)
+  referrerName  String?  @db.VarChar(100)
+  referrerPhone String?  @db.VarChar(20)
+  referrerEmail String?  @db.VarChar(100)
+  createdAt     DateTime @default(now())
+
+  referral ReferralCode? @relation(fields: [referralCode], references: [code])
+
+  @@index([referralCode])
+}
+
+// ---------------------------------------------------------------------------
+// 3. Contact Submissions
+// ---------------------------------------------------------------------------
+model ContactSubmission {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(100)
+  email     String   @db.VarChar(100)
+  phone     String?  @db.VarChar(20)
+  message   String?  @db.Text
+  createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// 4. Consultation Requests
+// ---------------------------------------------------------------------------
+model ConsultationRequest {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(100)
+  phone     String   @db.VarChar(20)
+  message   String?  @db.Text
+  createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------------------------
+// 5. Banker Partnership Requests
+// ---------------------------------------------------------------------------
+model BankerPartnershipRequest {
+  id        String   @id @default(uuid())
+  name      String   @db.VarChar(100)
+  phone     String   @db.VarChar(20)
+  createdAt DateTime @default(now())
+}
