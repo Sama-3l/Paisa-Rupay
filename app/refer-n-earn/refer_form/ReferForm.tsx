@@ -37,7 +37,7 @@ export default function ReferForm() {
   // Build WhatsApp and email share URLs only after a code is available
   const whatsappUrl = state.code
     ? `https://wa.me/?text=${encodeURIComponent(
-        `Use my referral code ${state.code} to apply for a loan on PaisaRupay! Visit: https://paisarupay.com/apply-for-loan`
+        `Use my referral code ${state.code} to apply for a loan on PaisaRupay! Visit: https://paisarupay.com/apply-for-loan/referral=${state.code}`
       )}`
     : '#';
 
@@ -45,7 +45,7 @@ export default function ReferForm() {
     ? `mailto:?subject=${encodeURIComponent(
         'Apply for a loan with my referral code'
       )}&body=${encodeURIComponent(
-        `Hi,\n\nUse my referral code ${state.code} to apply for a loan on PaisaRupay!\n\nhttps://paisarupay.com/apply-for-loan`
+        `Hi,\n\nUse my referral code ${state.code} to apply for a loan on PaisaRupay!\n\nhttps://paisarupay.com/apply-for-loan/referral=${state.code}`
       )}`
     : '#';
 

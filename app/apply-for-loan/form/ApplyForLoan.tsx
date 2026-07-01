@@ -8,6 +8,7 @@ import { LoanFormState, LOAN_OPTIONS } from '@/src/lib/types';
 import styles from '@/src/common/form.module.css';
 import Spinner from '@/src/common/Spinner/Spinner';
 import { sendGAEvent } from '@next/third-parties/google'
+import { useSearchParams } from 'next/navigation';
 
 const initialState: LoanFormState = {
   success: false,
@@ -27,6 +28,8 @@ interface ApplyForLoanProps {
 export default function ApplyForLoan({ preselected = '', preselectedRef = '', margin = 'mt-10 mb-20' }: ApplyForLoanProps) {
   // Hook into our Server Action to receive form state outputs (success, errors, pending)
   const [state, formAction, isPending] = useActionState(submitLoanForm, initialState);
+  const searchParams = useSearchParams();
+  const code = searchParams.get('referral') || undefined;
 
   return (
     <div className={`w-full ${margin}`}>
@@ -131,7 +134,7 @@ export default function ApplyForLoan({ preselected = '', preselectedRef = '', ma
               placeholder="Enter code if you have one"
               required={false}
               maxLength={8}
-              defaultValue={preselectedRef}
+              defaultValue={code?.length == 8 ? code : preselected}
               disabled={isPending}
             />
             {/* No error shown for referral code — invalid codes are silently ignored */}
