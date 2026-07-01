@@ -62,7 +62,7 @@ export default function ReferForm() {
           >
             Here is your referral code,{' '}
             <strong className={styles.code_span} id="userName">
-              {state.message ?? ''}
+              {state.code ?? ''}
             </strong>
             . Share it with anyone who needs a loan.
           </p>
