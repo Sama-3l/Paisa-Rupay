@@ -96,7 +96,14 @@ export default function RootLayout({
               });
             `
           }}
-        />
+        />         
+      <script 
+        type="text/javascript"
+        src="https://d3mkw6s8thqya7.cloudfront.net/integration-plugin.js"
+        id="aisensy-wa-widget"
+        widget-id="aabm4u"
+      >
+      </script>
       </head>
       <body className="min-h-full flex flex-col">
         <GoogleAnalytics gaId={process.env.GOOGLE_ANALYTICS_ID || ""} />
